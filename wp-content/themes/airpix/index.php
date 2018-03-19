@@ -236,6 +236,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<!-- container -->
 			<div class="container">
 				<div class="upload-grids">
+                    <?php echo '<div class="contactform">'.do_shortcode('[fu-upload-form class="html-wrapper-class"
+form_layout="media" title="Upload your media"]
+[input type="text" name="post_title" id="title"
+class="required" description="Title"]
+[textarea name="post_content" class="textarea"
+id="my-textarea" description="Description (optional)"]
+[input type="file" name="photo" id="my-photo-submission"
+class="required" description="Your Photo" multiple="multiple"]
+[input type="submit" class="btn" value="Submit"]
+[/fu-upload-form]');?>
+
 					<div class="upload-right">
 						<div class="upload-file">
 							<div class="services-icon">
