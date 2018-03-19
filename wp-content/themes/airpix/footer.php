@@ -1,5 +1,5 @@
 <!-- footer -->
-<div class="footer">
+<div class="footer col-md-offset-2 ">
     <div class="container">
         <div class="footer-top">
             <div class="footer-top-nav">
@@ -19,7 +19,6 @@
                     <li><a href="#small-dialog4" class="play-icon popup-with-zoom-anim">Send feedback</a></li>
                     <li><a href="privacy.html">Policy & Safety </a></li>
                     <li><a href="try.html">Try something new!</a></li>
-                    <li><p>Copyright © 2015 My Play. All Rights Reserved. | Design by <a href="http://w3layouts.com/">W3layouts</a></p></li>
                 </ul>
             </div>
         </div>
