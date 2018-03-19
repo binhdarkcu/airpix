@@ -34,6 +34,7 @@ $o(document).ready(function () {
             success: function (data) {
                 // your callback here
                 console.log("success", data);
+                location.reload();
             },
             error: function (error) {
                 // handle error
@@ -60,14 +61,17 @@ $o(document).ready(function () {
         $o(progress_bar_id + " .progress-bar").css("width", +percent + "%");
         $o(progress_bar_id + " .status").text(percent + "%");
     };
-//Change id to your id
+    
     $o("#uploadfiles").on("change", function (e) {
         var file = $o(this)[0].files[0];
-        var upload = new Upload(file);
-
-        // maby check size or type here with upload.getSize() and upload.getType()
-
-        // execute upload
-        upload.doUpload();
+        $o('#upload-filename').text(file.name);
+    });
+    
+    $o('#uploadfile_btn').click(function(){
+        var file = $o("#uploadfiles")[0].files[0];
+        if(file){
+            var upload = new Upload(file);
+            upload.doUpload();
+        }
     });
 });

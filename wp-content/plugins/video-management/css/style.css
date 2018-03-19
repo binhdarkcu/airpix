@@ -37,3 +37,24 @@
 .video-updated-date{width: 5%;}
 .video-format{width: 5%;}
 .video-action{width: 5%;}
+
+#upload-section{padding-top: 10px;}
+#uploadfile_form{padding: 10px; padding-bottom: 20px;}
+.clear{clear: both;}
+.myFile {
+    position: relative;
+    overflow: hidden;
+    float: left;
+    clear: left;
+    margin-bottom: 20px;
+}
+.myFile input[type="file"] {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  font-size: 100px;
+  filter: alpha(opacity=0);
+  cursor: pointer;
+}
