@@ -1,3 +1,4 @@
+/*Admin CSS*/
 #progress-wrp {
     border: 1px solid #0099CC;
     padding: 1px;
@@ -41,14 +42,14 @@
 #upload-section{padding-top: 10px;}
 #uploadfile_form{padding: 10px; padding-bottom: 20px;}
 .clear{clear: both;}
-.myFile {
+#upload-section .custom-file-selector {
     position: relative;
     overflow: hidden;
     float: left;
     clear: left;
     margin-bottom: 20px;
 }
-.myFile input[type="file"] {
+#upload-section .custom-file-selector input[type="file"] {
   display: block;
   position: absolute;
   top: 0;

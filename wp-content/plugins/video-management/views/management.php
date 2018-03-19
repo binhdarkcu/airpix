@@ -1,6 +1,6 @@
 <div id="upload-section">
     <form name="uploadfile" id="uploadfile_form" method="POST" enctype="multipart/form-data" action="<?php echo plugins_url().'/video-management/includes/uploader.php' ?>" accept-charset="utf-8" >
-        <label class="myFile">
+        <label class="custom-file-selector">
             <img src="<?php echo plugins_url().'/video-management/images/upload.png' ?>" alt="" />
             <input type="file" id="uploadfiles"/>
             <div id="upload-filename"></div>
