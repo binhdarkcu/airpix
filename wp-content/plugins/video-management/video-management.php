@@ -50,7 +50,7 @@ class WP_Video_Management{
 
     function wpa_plugin_styles_scripts(){
         if (! is_admin()) {
-            wp_enqueue_style ( 'style', plugins_url ( '/css/style.css', __FILE__ ) );
+            wp_enqueue_style ( 'video-gridview', plugins_url ( '/css/video-gridview.css', __FILE__ ) );
             wp_enqueue_style ( 'video-js', plugins_url ( '/css/video-js.css', __FILE__ ) );
             wp_enqueue_script ( 'jquery' );
             wp_enqueue_script ( 'video', plugins_url ( '/js/video.js', __FILE__ ) );
