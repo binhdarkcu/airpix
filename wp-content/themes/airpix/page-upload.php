@@ -1,9 +1,9 @@
 <?php get_header()?>
-<div class="upload">
+<!--<div class="upload">
 
-<!---728x90--->
+-728x90-
 
-    <!-- container -->
+     container 
     <div class="container">
         <div class="upload-grids">
             <div class="upload-right">
@@ -20,12 +20,15 @@
                 </div>
             </div>
 
-<!---728x90--->
+-728x90-
 
 
         </div>
     </div>
-    <!-- //container -->
-</div>
+     //container 
+</div>-->
 <!-- //upload -->
+<div id="upload-media">
+    <?php echo do_shortcode('[fu-upload-form class="html-wrapper-class" form_layout="media" title="Upload your media"] [input type="text" name="post_title" id="title" class="required" description="Title"] [textarea name="post_content" class="textarea" id="my-textarea" description="Description (optional)"] [input type="file" name="photo" id="my-photo-submission" class="required" description="Your Photo" multiple="multiple"] [input type="submit" class="btn" value="Submit"] [/fu-upload-form]')?>
+</div>
 <?php get_footer()?>

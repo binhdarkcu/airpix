@@ -2762,3 +2762,6 @@ background: url(../images/social.png) no-repeat 0px 0px;
 		padding: .52em 1em .52em 3em;
 	}
 }
+
+/*test*/
+#upload-media{max-width: 500px; margin: 0 auto; margin-top: 50px;}

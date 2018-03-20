@@ -27,6 +27,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
 <!-- //fonts -->
+ <?php wp_head(); ?>
 </head>
   <body>
 
@@ -178,8 +179,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										</div>
 									</div>
 									<script>
-											$(document).ready(function() {
-											$('.popup-with-zoom-anim').magnificPopup({
+											jQuery (document).ready(function() {
+											jQuery ('.popup-with-zoom-anim').magnificPopup({
 												type: 'inline',
 												fixedContentPos: false,
 												fixedBgPos: true,
