@@ -23,7 +23,7 @@ $o(document).ready(function () {
 
         $o.ajax({
             type: "POST",
-            url: $o("#uploadfile_form").attr("action"),
+            url: UploadUrl,
             xhr: function () {
                 var myXhr = $o.ajaxSettings.xhr();
                 if (myXhr.upload) {

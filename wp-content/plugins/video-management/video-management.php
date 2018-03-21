@@ -14,13 +14,12 @@ class WP_Video_Management{
     function __construct() {
 
         add_action( 'admin_menu', array( $this, 'wpa_add_menu' ));
-        add_action ( 'wp_enqueue_scripts', 'wpa_plugin_styles_scripts' );
+        add_action ( 'wp_enqueue_scripts', array($this , 'wpa_plugin_styles_scripts') );
         add_shortcode('video_list', array($this, 'create_video_grid_view'));
+        add_shortcode('create_video_upload_form', array($this, 'video_upload_form_client'));
         register_activation_hook( __FILE__, array( $this, 'wpa_install' ) );
         register_deactivation_hook( __FILE__, array( $this, 'wpa_uninstall' ) );
     }
-
-
 
     /*
       * Actions perform at loading of admin menu
@@ -31,20 +30,12 @@ class WP_Video_Management{
 
         add_action('load-'.$hook_suffix, array($this, 'wpa_admin_styles_scripts'));
 
-//        add_submenu_page( 'analytify-dashboard', 'Analytify simple' . ' Dashboard', ' Dashboard', 'manage_options', 'analytify-dashboard', array(
-//                              __CLASS__,
-//                             'wpa_page_file_path'
-//                            ));
-
-//        add_submenu_page( 'analytify-dashboard', 'Analytify simple' . ' Settings', '<b style="color:#f9845b">Settings</b>', 'manage_options', 'analytify-settings', array(
-//                              __CLASS__,
-//                             'wpa_page_file_path'
-//                            ));
     }
 
     function wpa_admin_styles_scripts(){
         wp_enqueue_style ( 'style', plugins_url ( '/css/style.css', __FILE__ ) );
         wp_enqueue_script ( 'jquery' );
+        wp_enqueue_style ( 'admin_css', plugins_url ( '/css/admin_css.css', __FILE__ ) );
         wp_enqueue_script ( 'video-management', plugins_url ( '/js/video-management.js', __FILE__ ) );
     }
 
@@ -58,12 +49,31 @@ class WP_Video_Management{
     }
 
     function display_videos_management_page() {
-        include_once( 'views/management.php' );
+        $action = "gridview";
+        if (isset ( $_GET ['action'] ) and $_GET ['action'] != '') {
+            $action = trim ( $_GET ['action'] );
+	}
+        if(strtolower ( $action ) == strtolower ( 'addnew' )){
+             include_once('views/upload_form.php');
+        }else{
+            wp_enqueue_style ( 'magnific-popup', plugins_url ( '/css/magnific-popup.css', __FILE__ ) );
+            wp_enqueue_script ( 'jquery.magnific-popup.min', plugins_url ( '/js/jquery.magnific-popup.min.js', __FILE__ ) );
+            wp_enqueue_style( 'wp-mediaelement' );
+            wp_enqueue_script('wp-mediaelement');
+            include_once( 'views/management.php' );
+
+        }
     }
 
     function create_video_grid_view(){
         $this->wpa_plugin_styles_scripts();
         include_once('views/video-grid.php');
+    }
+    
+    function video_upload_form_client(){
+        wp_enqueue_style ( 'style', plugins_url ( '/css/style.css', __FILE__ ) );
+        wp_enqueue_script ( 'video-management', plugins_url ( '/js/video-management.js', __FILE__ ) );
+        include_once('views/upload_form.php');
     }
     /*
      * Actions perform on loading of menu pages
