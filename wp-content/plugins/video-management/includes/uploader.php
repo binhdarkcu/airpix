@@ -1,5 +1,6 @@
 <?php
 require_once('../../../../wp-load.php');
+require_once( ABSPATH . 'wp-admin/includes/media.php' );
 try {
 
     // Undefined | Multiple Files | $_FILES Corruption Attack
@@ -69,10 +70,14 @@ try {
     $display_name = pathinfo($_FILES['upfile']['name'])['filename'];
     $download_name = $hashedName.'.'.$ext;
     $description = 'des';
+    $duration = 0;
+    $metadata = wp_read_video_metadata($pathToVideosFolder.'/'.$download_name);
+
+    if($metadata) $duration = $metadata['length_formatted'];
 
     $query = "INSERT INTO " . $wpdb->prefix . "videos 
-                                		(user_id, display_name, download_name, thumbnail, description, video_format, created_date, updated_date) 
-                           				 VALUES ('$user_id','$display_name','$download_name','$thumbnail','$description','$ext','$created_date','$updated_date')";
+                                		(user_id, display_name, download_name, thumbnail, description, video_format, duration, created_date, updated_date) 
+                           				 VALUES ('$user_id','$display_name','$download_name','$thumbnail','$description','$ext','$duration','$created_date','$updated_date')";
 
     $wpdb->query ( $query );
     echo 'File is uploaded successfully.';

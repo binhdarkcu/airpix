@@ -100,6 +100,7 @@ class WP_Video_Management{
 		thumbnail tinytext DEFAULT '' NULL,
 		description text NULL,
 		video_format varchar(50) NOT NULL,
+		duration varchar(50) NOT NULL,
         created_date datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 		updated_date datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 		PRIMARY KEY  (id)

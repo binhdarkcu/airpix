@@ -1,3 +1,4 @@
+<?php require_once( ABSPATH . 'wp-admin/includes/media.php' );?>
 <?php get_header()?>
 		<!-- upload -->
         <div class="col-sm-3 col-md-2 sidebar">
@@ -45,114 +46,39 @@
 					<div class="recommended-info">
 						<h3>Recent Videos</h3>
 					</div>
-                    <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
-						<div class="resent-grid-img recommended-grid-img">
-							<a href="single.html"><img src="images/t1.jpg" alt=""></a>
-							<div class="time">
-								<p>3:04</p>
-							</div>
-							<div class="clck">
-								<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-							</div>
-						</div>
-						<div class="resent-grid-info recommended-grid-info">
-							<h3><a href="single.html" class="title title-info">Pellentesque vitae pulvinar tortor nullam interdum metus a imperdiet</a></h3>
-							<ul>
-								<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-								<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
-							</ul>
-						</div>
-					</div>
-                    <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
-						<div class="resent-grid-img recommended-grid-img">
-							<a href="single.html"><img src="images/t1.jpg" alt=""></a>
-							<div class="time">
-								<p>3:04</p>
-							</div>
-							<div class="clck">
-								<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-							</div>
-						</div>
-						<div class="resent-grid-info recommended-grid-info">
-							<h3><a href="single.html" class="title title-info">Pellentesque vitae pulvinar tortor nullam interdum metus a imperdiet</a></h3>
-							<ul>
-								<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-								<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
-							</ul>
-						</div>
-					</div>
-                    <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
-						<div class="resent-grid-img recommended-grid-img">
-							<a href="single.html"><img src="images/t1.jpg" alt=""></a>
-							<div class="time">
-								<p>3:04</p>
-							</div>
-							<div class="clck">
-								<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-							</div>
-						</div>
-						<div class="resent-grid-info recommended-grid-info">
-							<h3><a href="single.html" class="title title-info">Pellentesque vitae pulvinar tortor nullam interdum metus a imperdiet</a></h3>
-							<ul>
-								<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-								<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
-							</ul>
-						</div>
-					</div>
-                    <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
-						<div class="resent-grid-img recommended-grid-img">
-							<a href="single.html"><img src="images/t1.jpg" alt=""></a>
-							<div class="time">
-								<p>3:04</p>
-							</div>
-							<div class="clck">
-								<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-							</div>
-						</div>
-						<div class="resent-grid-info recommended-grid-info">
-							<h3><a href="single.html" class="title title-info">Pellentesque vitae pulvinar tortor nullam interdum metus a imperdiet</a></h3>
-							<ul>
-								<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-								<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
-							</ul>
-						</div>
-					</div>
-                    <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
-						<div class="resent-grid-img recommended-grid-img">
-							<a href="single.html"><img src="images/t1.jpg" alt=""></a>
-							<div class="time">
-								<p>3:04</p>
-							</div>
-							<div class="clck">
-								<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-							</div>
-						</div>
-						<div class="resent-grid-info recommended-grid-info">
-							<h3><a href="single.html" class="title title-info">Pellentesque vitae pulvinar tortor nullam interdum metus a imperdiet</a></h3>
-							<ul>
-								<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-								<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
-							</ul>
-						</div>
-					</div>
-                    <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
-						<div class="resent-grid-img recommended-grid-img">
-							<a href="single.html"><img src="images/t1.jpg" alt=""></a>
-							<div class="time">
-								<p>3:04</p>
-							</div>
-							<div class="clck">
-								<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-							</div>
-						</div>
-						<div class="resent-grid-info recommended-grid-info">
-							<h3><a href="single.html" class="title title-info">Pellentesque vitae pulvinar tortor nullam interdum metus a imperdiet</a></h3>
-							<ul>
-								<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-								<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
-							</ul>
-						</div>
-					</div>
+
+                    <?php
+                    global $wpdb;
+                    $query = "SELECT * FROM " . $wpdb->prefix . "videos  ORDER BY created_date desc";
+                    $rows = $wpdb->get_results ( $query, 'ARRAY_A' );
+                    $rowCount = sizeof ( $rows );
+
+                    $uploads = wp_upload_dir();
+                    $baseDir = $uploads ['basedir'];
+                    $baseDir = str_replace ( "\\", "/", $baseDir );
+                    $pathToVideosFolder = $baseDir . '/uploaded-videos/';
+                    ?>
+                    <?php foreach ($rows as $row):?>
+
+                        <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
+                            <div class="resent-grid-img recommended-grid-img">
+                                <a href="single.html"><img src="images/t1.jpg" alt=""></a>
+                                <div class="time">
+                                    <p><?php echo $row['duration']?></p>
+                                </div>
+                                <div class="clck">
+                                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <div class="resent-grid-info recommended-grid-info">
+                                <h3><a href="single.html" class="title title-info">Pellentesque vitae pulvinar tortor nullam interdum metus a imperdiet</a></h3>
+                                <ul>
+                                    <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
+                                    <li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+                                </ul>
+                            </div>
+                        </div>
+                    <?php endforeach;?>
                 </div>
             </div>
         </div>

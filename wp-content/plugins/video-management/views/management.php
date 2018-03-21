@@ -144,6 +144,8 @@ function  confirmDelete(){
         return false;
 }
 jQuery(document).ready(function(){
+    // jQuery('#video-player').mediaelementplayer(/* Options */);
+
     jQuery ('.show-video').magnificPopup({
             type: 'inline',
             fixedContentPos: false,
@@ -153,9 +155,24 @@ jQuery(document).ready(function(){
             preloader: false,
             midClick: true,
             removalDelay: 300,
-            mainClass: 'my-mfp-zoom-in'
+            mainClass: 'my-mfp-zoom-in',
+            callbacks: {
+                close: function() {
+                    jQuery('.mejs-offscreen, .mejs-container').remove();
+                },
+                beforeOpen: function(){
+                    var videoSrc = this.st.el.data('src');
+                    jQuery('<video>', {
+                        id: 'video-player',
+                        src: videoSrc,
+                        width: 640,
+                        height: 360
+                    }).appendTo('#video-player-popup');
+
+                    jQuery('#video-player').mediaelementplayer();
+                }
+            }
     });
-    jQuery('#video-player').mediaelementplayer(/* Options */);
 })
 </script>
 <div id="video-list">
@@ -181,8 +198,8 @@ jQuery(document).ready(function(){
                         <th><span><?php echo _('Name')?></span></th>
                         <th><span><?php echo _('Thumbnail');?></span></th>
                         <th><span><?php echo _('Video Format');?></span></th>
-                        <th><span><?php echo _('Created date'); ?></span></th>
-                        <th><span><?php echo _('Updated date');?></span></th>
+                        <th><span><?php echo _('Duration'); ?></span></th>
+                        <th><span><?php echo _('Created date');?></span></th>
                         <th><span><?php echo _('Action');?></span></th>
                     </tr>
             </thead>
@@ -194,7 +211,9 @@ jQuery(document).ready(function(){
             $query = "SELECT * FROM " . $wpdb->prefix . "videos  ORDER BY created_date desc";
             $rows = $wpdb->get_results ( $query, 'ARRAY_A' );
 
-            $delRecNonce = wp_create_nonce('delete_video');  
+            $delRecNonce = wp_create_nonce('delete_video');
+
+            $uploadUri = site_url().'/wp-content/uploads/uploaded-videos/'
         ?>
 
         <?php foreach ($rows as $row) : ?>
@@ -203,11 +222,11 @@ jQuery(document).ready(function(){
                         type="checkbox" value="<?php echo $row['id'] ?>"
                         name="thumbnails[]"></td>
                 <td data-title="Id" class="alignCenter"><?php echo $row['id']; ?></td>
-                <td data-title="Name" class="alignCenter"><a href="#video-player-popup" class="show-video"><?php echo $row['display_name'] ;?></a></td>
+                <td data-title="Name" class="alignCenter"><a href="#video-player-popup" class="show-video" data-src="<?php echo $uploadUri.$row['download_name'];?>"><?php echo $row['display_name'] ;?></a></td>
                 <td data-title="Thumbnail" class="alignCenter"><?php echo $row['thumbnail']; ?></td>
                 <td data-title="Format" class="alignCenter"><?php echo $row['video_format']; ?></td>
-                <td data-title="Created Date" class="alignCenter"><?php echo $row['created_date']; ?></td>
-                <td data-title="Updated Date" class="alignCenter"><?php echo $row['updated_date']; ?></td>
+                <td data-title="Created Date" class="alignCenter"><?php echo $row['duration']; ?></td>
+                <td data-title="Updated Date" class="alignCenter"><?php echo $row['created_date']; ?></td>
                 <td data-title="Delete" class="alignCenter"><a href="<?php echo "admin.php?page=manage-videos&action=delete&id=".$row['id']."&nonce=$delRecNonce"?>" onclick="return confirmDelete();" title="delete">Delete</a></td>
             </tr>
                 
@@ -218,6 +237,6 @@ jQuery(document).ready(function(){
     </form>
 </div>
     <div id="video-player-popup" class="mfp-hide">
-        <video id="video-player" width="640" height="360" style="margin: 0 auto" src="http://localhost:8080/wp-content/uploads/uploaded-videos/2ecf7dd304bf8234a8dbf993a9b683123ccda0831521614624.mp4" autoplay="true"></video>
+<!--        <video id="video-player" width="640" height="360" src=""></video>-->
     </div>
 </div>

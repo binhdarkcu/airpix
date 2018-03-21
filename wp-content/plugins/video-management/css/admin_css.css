@@ -18,3 +18,8 @@
 .image_error{color:red !important;}
 .succMsg{background:#E2F3DA  !important;border: 1px solid #9ADF8F !important;color:#556652 !important ;padding:8px 8px 8px 36px !important;text-align:left !important;margin:5px !important;margin-left: 0px !important;margin-top: 30px !important;width:505px !important;}
 .errMsg{background:#FFCECE  !important;border: 1px solid #DF8F8F !important;color:#665252 !important ;padding:8px 8px 8px 36px !important; text-align:left !important;margin:5px !important;margin-left: 0px !important;margin-top: 30px !important;width:505px !important ;}
+
+#video-player-popup{margin: 0 auto; max-width: 640px; position: relative}
+#video-player-popup .mfp-close{position: absolute; color: #fff; top: -35px; right: -35px; font-size: 35px;}
+.wp-video{margin: 0 auto;}
+.mejs-container{margin: 0 auto}
