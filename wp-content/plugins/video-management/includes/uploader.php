@@ -50,8 +50,7 @@ try {
     // You should name it uniquely.
     // DO NOT USE $_FILES['upfile']['name'] WITHOUT ANY VALIDATION !!
     // On this example, obtain safe unique name from its binary data.
-
-
+    
     $uploads = wp_upload_dir();
     $baseDir = $uploads ['basedir'];
     $baseDir = str_replace ( "\\", "/", $baseDir );
@@ -63,9 +62,37 @@ try {
         throw new RuntimeException('Failed to move uploaded file.');
     }
 
+    
+    $thumbnail = '';
+    if(isset($_POST) && isset($_POST['thumbnail'])){
+        
+        $data = $_POST['thumbnail'];
+        if (preg_match('/^data:image\/(\w+);base64,/', $data, $type)) {
+        $data = substr($data, strpos($data, ',') + 1);
+        $type = strtolower($type[1]); // jpg, png, gif
+
+        if (!in_array($type, [ 'jpg', 'jpeg', 'gif', 'png' ])) {
+            throw new \Exception('invalid image type');
+        }
+
+        $data = base64_decode($data);
+
+        if ($data === false) {
+            throw new \Exception('base64_decode failed');
+        }
+        } else {
+        throw new \Exception('did not match data URI with image data');
+        }
+
+        $thumbnail = $hashedName.'.'.$type;
+        
+        file_put_contents($pathToVideosFolder.'/'.$thumbnail, $data);
+        
+    }
+    
+    
     global $wpdb;
     $created_date = $updated_date = current_time ( 'Y-m-d h:i:s' );
-    $thumbnail = '';
     $user_id = 1;
     $display_name = pathinfo($_FILES['upfile']['name'])['filename'];
     $download_name = $hashedName.'.'.$ext;

@@ -19,6 +19,7 @@ $o(document).ready(function () {
 
         // add assoc key values, this will be posts values
         formData.append("upfile", this.file, this.getName());
+        formData.append("thumbnail", document.getElementById('image-preview').src);
         formData.append("upload_file", true);
 
         $o.ajax({
@@ -65,6 +66,26 @@ $o(document).ready(function () {
     $o("#uploadfiles").on("change", function (e) {
         var file = $o(this)[0].files[0];
         $o('#upload-filename').text(file.name);
+        //Generates preview
+        var canvas_elem = $o( '<canvas class="snapshot-generator"></canvas>' ).appendTo(document.body)[0];
+        var $video = $o( '<video muted class="snapshot-generator"></video>' ).appendTo(document.body);
+        var step_2_events_fired = 0;
+        $video.one('loadedmetadata loadeddata suspend', function() {
+          if (++step_2_events_fired == 3) {
+            $video.one('seeked', function() {
+              canvas_elem.height = this.videoHeight;
+              canvas_elem.width = this.videoWidth;
+              canvas_elem.getContext('2d').drawImage(this, 0, 0);
+              var snapshot = canvas_elem.toDataURL();
+              var preview = document.getElementById('image-preview');
+              preview.src = snapshot;
+              // Delete the elements as they are no longer needed
+              $video.remove();
+              jQuery(canvas_elem).remove();
+            }).prop('currentTime', 4);
+          }
+        }).prop('src', URL.createObjectURL(file));
+        
     });
     
     $o('#uploadfile_btn').click(function(){

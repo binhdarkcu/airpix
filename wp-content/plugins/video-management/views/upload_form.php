@@ -25,6 +25,9 @@
                     <div class="status">0%</div>
                 </div>
                 <input id="uploadfile_btn" class="button-primary" type="button" value="Upload"/>
+                <div id="video-preview">
+                    <image id="image-preview" src=""/>
+                </div>
             </div>
 
 <!---728x90--->

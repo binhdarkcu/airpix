@@ -52,17 +52,14 @@
                     $query = "SELECT * FROM " . $wpdb->prefix . "videos  ORDER BY created_date desc";
                     $rows = $wpdb->get_results ( $query, 'ARRAY_A' );
                     $rowCount = sizeof ( $rows );
-
-                    $uploads = wp_upload_dir();
-                    $baseDir = $uploads ['basedir'];
-                    $baseDir = str_replace ( "\\", "/", $baseDir );
-                    $pathToVideosFolder = $baseDir . '/uploaded-videos/';
+                    $uploadUri = site_url().'/wp-content/uploads/uploaded-videos/'
                     ?>
                     <?php foreach ($rows as $row):?>
 
+                    <?php $thumbnail = trim($row['thumbnail']) ? $uploadUri.$row['thumbnail']:'images/t1.jpg'?>
                         <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
                             <div class="resent-grid-img recommended-grid-img">
-                                <a href="single.html"><img src="images/t1.jpg" alt=""></a>
+                                <a href="single.html"><img src="<?php echo $thumbnail;?>" alt=""/></a>
                                 <div class="time">
                                     <p><?php echo $row['duration']?></p>
                                 </div>
