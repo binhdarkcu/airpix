@@ -59,7 +59,7 @@
                     <?php $thumbnail = trim($row['thumbnail']) ? $uploadUri.$row['thumbnail']:'images/t1.jpg'?>
                         <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
                             <div class="resent-grid-img recommended-grid-img">
-                                <a href="single.html"><img src="<?php echo $thumbnail;?>" alt=""/></a>
+                                <a href="#video-player-popup" data-src="<?php echo $uploadUri.$row['download_name']?>" class="show-video"><img src="<?php echo $thumbnail;?>" alt=""/></a>
                                 <div class="time">
                                     <p><?php echo $row['duration']?></p>
                                 </div>
@@ -68,18 +68,53 @@
                                 </div>
                             </div>
                             <div class="resent-grid-info recommended-grid-info">
-                                <h3><a href="single.html" class="title title-info">Pellentesque vitae pulvinar tortor nullam interdum metus a imperdiet</a></h3>
+                                <h3><a href="<?php echo site_url();?>" class="title title-info"><?php echo $row['display_name']?></a></h3>
                                 <ul>
-                                    <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-                                    <li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+                                    <li><p class="author author-info"><a href="<?php echo site_url();?>" class="author">admin</a></p></li>
+                                    <li class="right-list"><p class="views views-info">125 views</p></li>
                                 </ul>
                             </div>
                         </div>
                     <?php endforeach;?>
                 </div>
             </div>
+            <div id="video-player-popup" class="mfp-hide">
+                <!--        <video id="video-player" width="640" height="360" src=""></video>-->
+            </div>
         </div>
 <div class="clearfix"> </div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        jQuery ('.show-video').magnificPopup({
+            type: 'inline',
+            fixedContentPos: false,
+            fixedBgPos: true,
+            overflowY: 'auto',
+            closeBtnInside: true,
+            preloader: false,
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-zoom-in',
+            callbacks: {
+                close: function() {
+                    jQuery('.mejs-offscreen, .mejs-container').remove();
+                },
+                beforeOpen: function(){
+                    var videoSrc = this.st.el.data('src');
+                    jQuery('<video>', {
+                        id: 'video-player',
+                        src: videoSrc,
+                        width: 640,
+                        height: 360
+                    }).appendTo('#video-player-popup');
+
+                    jQuery('#video-player').mediaelementplayer();
+                }
+            }
+        });
+    })
+</script>
 <?php get_footer()?>
 
 <!---728x90--->
