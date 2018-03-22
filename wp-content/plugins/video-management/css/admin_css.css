@@ -23,3 +23,4 @@
 #video-player-popup .mfp-close{position: absolute; color: #fff; top: -35px; right: -35px; font-size: 35px;}
 .wp-video{margin: 0 auto;}
 .mejs-container{margin: 0 auto}
+.admin-video-thumbnail{max-width: 150px;}

@@ -223,7 +223,7 @@ jQuery(document).ready(function(){
                         name="thumbnails[]"></td>
                 <td data-title="Id" class="alignCenter"><?php echo $row['id']; ?></td>
                 <td data-title="Name" class="alignCenter"><a href="#video-player-popup" class="show-video" data-src="<?php echo $uploadUri.$row['download_name'];?>"><?php echo $row['display_name'] ;?></a></td>
-                <td data-title="Thumbnail" class="alignCenter"><?php echo $row['thumbnail']; ?></td>
+                <td data-title="Thumbnail" class="alignCenter"><img class="admin-video-thumbnail" src="<?php echo $uploadUri.$row['thumbnail'];?>"/></td>
                 <td data-title="Format" class="alignCenter"><?php echo $row['video_format']; ?></td>
                 <td data-title="Created Date" class="alignCenter"><?php echo $row['duration']; ?></td>
                 <td data-title="Updated Date" class="alignCenter"><?php echo $row['created_date']; ?></td>
