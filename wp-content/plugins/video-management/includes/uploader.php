@@ -93,7 +93,7 @@ try {
     
     global $wpdb;
     $created_date = $updated_date = current_time ( 'Y-m-d h:i:s' );
-    $user_id = 1;
+    $current_user = wp_get_current_user();
     $display_name = pathinfo($_FILES['upfile']['name'])['filename'];
     $download_name = $hashedName.'.'.$ext;
     $description = 'des';
@@ -104,7 +104,7 @@ try {
 
     $query = "INSERT INTO " . $wpdb->prefix . "videos 
                                 		(user_id, display_name, download_name, thumbnail, description, video_format, duration, created_date, updated_date) 
-                           				 VALUES ('$user_id','$display_name','$download_name','$thumbnail','$description','$ext','$duration','$created_date','$updated_date')";
+                           				 VALUES ('$current_user->ID','$display_name','$download_name','$thumbnail','$description','$ext','$duration','$created_date','$updated_date')";
 
     $wpdb->query ( $query );
     echo 'File is uploaded successfully.';
