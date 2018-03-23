@@ -195,7 +195,7 @@ jQuery(document).ready(function(){
                     <tr>
                         <th class="manage-column column-cb check-column" scope="col"><input type="checkbox"></th>
                         <th>Id</th>
-                        <th><span><?php echo _('Name')?></span></th>
+                        <th><span><?php echo _('Video Title')?></span></th>
                         <th><span><?php echo _('Thumbnail');?></span></th>
                         <th><span><?php echo _('Video Format');?></span></th>
                         <th><span><?php echo _('Duration'); ?></span></th>
