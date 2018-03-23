@@ -75,12 +75,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											</div>
 										</div>
 										<div class="signup">
-											<form>
-												<input type="text" class="email" placeholder="Mobile Number" maxlength="10" pattern="[1-9]{1}\d{9}" title="Enter a valid mobile number" />
-											</form>
-											<div class="continue-button">
-												<a href="#small-dialog3" class="hvr-shutter-out-horizontal play-icon popup-with-zoom-anim">CONTINUE</a>
-											</div>
+                                            <?php echo do_shortcode('[RM_Form id="3"]')?>
+<!--											<form>-->
+<!--												<input type="text" class="email" placeholder="Mobile Number" maxlength="10" pattern="[1-9]{1}\d{9}" title="Enter a valid mobile number" />-->
+<!--											</form>-->
+<!--											<div class="continue-button">-->
+<!--												<a href="#small-dialog3" class="hvr-shutter-out-horizontal play-icon popup-with-zoom-anim">CONTINUE</a>-->
+<!--											</div>-->
 										</div>
 										<div class="clearfix"> </div>
 									</div>
