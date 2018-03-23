@@ -49,7 +49,7 @@
 
                     <?php
                     global $wpdb;
-                    $query = "SELECT * FROM " . $wpdb->prefix . "videos  ORDER BY created_date desc";
+                    $query = "SELECT V.*, U.display_name as user_name FROM " . $wpdb->prefix . "videos  AS V INNER JOIN ".$wpdb->prefix."users AS U ON V.user_id = U.ID ORDER BY V.created_date desc";
                     $rows = $wpdb->get_results ( $query, 'ARRAY_A' );
                     $rowCount = sizeof ( $rows );
                     $uploadUri = site_url().'/wp-content/uploads/uploaded-videos/'
@@ -70,7 +70,7 @@
                             <div class="resent-grid-info recommended-grid-info">
                                 <h3><a href="<?php echo site_url();?>" class="title title-info"><?php echo $row['display_name']?></a></h3>
                                 <ul>
-                                    <li><p class="author author-info"><a href="<?php echo site_url();?>" class="author">admin</a></p></li>
+                                    <li><p class="author author-info"><a href="<?php echo site_url();?>" class="author"><?php echo $row['user_name']?></a></p></li>
                                     <li class="right-list"><p class="views views-info">125 views</p></li>
                                 </ul>
                             </div>

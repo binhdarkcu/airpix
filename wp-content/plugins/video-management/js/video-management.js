@@ -35,7 +35,7 @@ $o(document).ready(function () {
             success: function (data) {
                 // your callback here
                 console.log("success", data);
-                location.reload();
+//                location.reload();
             },
             error: function (error) {
                 // handle error
