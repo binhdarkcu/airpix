@@ -2769,3 +2769,4 @@ background: url(../images/social.png) no-repeat 0px 0px;
 #upload-media{max-width: 500px; margin: 0 auto; margin-top: 50px;}
 #video-player-popup{margin: 0 auto; max-width: 640px; position: relative}
 #video-player-popup .mfp-close{position: absolute; color: #fff; top: -35px; right: -35px; font-size: 35px;}
+.logged-in{color: #000!important; background: #fff!important; cursor: default!important;}

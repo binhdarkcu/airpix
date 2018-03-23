@@ -52,9 +52,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			<div class="header-top-right">
 				<div class="file">
-					<a href="<?php echo HOME_URL;?>/upload/">Upload</a>
+                    <?php if( current_user_can('administrator')):?>
+					    <a href="<?php echo HOME_URL;?>/upload/">Upload</a>
+					<?php endif;?>
 				</div>
-				<div class="signin">
+				<div class="signin <?php if(is_user_logged_in()) echo 'hide'?>">
 					<a href="#small-dialog2" class="play-icon popup-with-zoom-anim">Sign Up</a>
 					<!-- pop-up-box -->
 									<script type="text/javascript" src="js/modernizr.custom.min.js"></script>
@@ -197,7 +199,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											});
 									</script>
 				</div>
-				<div class="signin">
+				<div class="signin <?php if(is_user_logged_in()) echo 'hide'?>">
 					<a href="#small-dialog" class="play-icon popup-with-zoom-anim">Sign In</a>
 					<div id="small-dialog" class="mfp-hide">
 						<h3>Login</h3>
@@ -226,6 +228,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="clearfix"> </div>
 					</div>
 				</div>
+                <div class="signin <?php if(!is_user_logged_in()) echo 'hide'?>">
+                    <a class="logged-in"> Hi, <?php if(wp_get_current_user()){ echo wp_get_current_user()->display_name;}?></a>
+                    <a href="<?php echo wp_logout_url(); ?>" class="">Logout</a>
+                </div>
 				<div class="clearfix"> </div>
 			</div>
         </div>
