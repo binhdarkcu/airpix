@@ -36,7 +36,7 @@
 							</ul>
 						</div>
 						<div class="copyright">
-							<p>Copyright © 2015 My Play. All Rights Reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+                            <p>Copyright © 2018 Air Pix. All Rights Reserved</p>
 						</div>
 					</div>
 				</div>
