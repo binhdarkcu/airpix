@@ -270,6 +270,24 @@ ul.cl-effect-1,ul.cl-effect-2 {
   padding: 0;
   margin: 0;
 }
+.signup {
+	margin-top: 0;
+}
+.rmagic .rmrow .rmfield label{
+	font-size: 14px;
+}
+.rmagic .rmrow .rmfield, .rmagic .rmrow .rminput {
+	width: 100%;
+	min-height: auto;
+	padding-bottom: 0;
+	padding-top:0;
+}
+.rmagic div[for="rm_login_form-element-3"] .rminput {
+	width: auto;
+}
+.rmagic .rmrow .rminput input[type="text"], .rmagic .rmrow .rminput input[type="password"], .rmagic .rmrow .rminput input[type="email"], .rmagic .rmrow .rminput input[type="url"], .rmagic .rmrow .rminput input[type="number"], .rmagic .rmrow .rminput textarea{
+	margin:0;
+}
 .callbacks li {
   position: absolute;
   width: 100%;
