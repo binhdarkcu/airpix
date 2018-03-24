@@ -1,3 +1,4 @@
+<?php /* Template Name: Home */ ?>
 <?php require_once( ABSPATH . 'wp-admin/includes/media.php' );?>
 <?php get_header()?>
 		<!-- upload -->
