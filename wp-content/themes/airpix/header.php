@@ -229,7 +229,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 				</div>
                 <div class="signin <?php if(!is_user_logged_in()) echo 'hide'?>">
-                    
+
                     <a class="logged-in"> Hi, <?php if(wp_get_current_user()){ echo wp_get_current_user()->display_name;}?></a>
                     <a href="<?php echo wp_logout_url(); ?>" class="">Logout</a>
                 </div>
