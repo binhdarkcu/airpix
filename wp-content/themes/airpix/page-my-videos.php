@@ -50,7 +50,7 @@
     <div class="main-grids">
         <div class="top-grids">
             <div class="recommended-info">
-                <h3>Recent Videos</h3>
+                <h3>My Videos</h3>
             </div>
 
             <?php
