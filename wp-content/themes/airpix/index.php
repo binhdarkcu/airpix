@@ -12,11 +12,8 @@
 			</div>
 				<div class="drop-navigation drop-navigation">
 				  <ul class="nav nav-sidebar">
-					<li class="active"><a href="index.html" class="home-icon"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-					<li><a href="shows.html" class="user-icon"><span class="glyphicon glyphicon-home glyphicon-blackboard" aria-hidden="true"></span>TV Shows</a></li>
-					<li><a href="history.html" class="sub-icon"><span class="glyphicon glyphicon-home glyphicon-hourglass" aria-hidden="true"></span>History</a></li>
-
-					<li><a href="news.html" class="news-icon"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>News</a></li>
+					<li class="active"><a href="<?php echo HOME_URL;?>" class="home-icon"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+					<li><a href="<?php echo HOME_URL;?>/my-videos" class="user-icon"><span class="glyphicon glyphicon-home glyphicon-blackboard" aria-hidden="true"></span>My Videos</a></li>
 				  </ul>
 				  <!-- script-for-menu -->
 						<script>
@@ -47,7 +44,13 @@
 					<div class="recommended-info">
 						<h3>Recent Videos</h3>
 					</div>
-
+                    <script>
+                        function fbShare(url, title, descr, image, winWidth, winHeight) {
+                            var winTop = (screen.height / 2) - (winHeight / 2);
+                            var winLeft = (screen.width / 2) - (winWidth / 2);
+                            window.open('http://www.facebook.com/sharer.php?s=100&p[title]=' + title + '&p[summary]=' + descr + '&p[url]=' + url + '&p[images][0]=' + image, 'sharer', 'top=' + winTop + ',left=' + winLeft + ',toolbar=0,status=0,width=' + winWidth + ',height=' + winHeight);
+                        }
+                    </script>
                     <?php
                     global $wpdb;
                     $query = "SELECT V.*, U.display_name as user_name FROM " . $wpdb->prefix . "videos  AS V INNER JOIN ".$wpdb->prefix."users AS U ON V.user_id = U.ID ORDER BY V.created_date desc";
@@ -72,7 +75,9 @@
                                 <h3><a href="<?php echo site_url();?>" class="title title-info"><?php echo $row['display_name']?></a></h3>
                                 <ul>
                                     <li><p class="author author-info"><a href="<?php echo site_url();?>" class="author"><?php echo $row['user_name']?></a></p></li>
-                                    <li class="right-list"><p class="views views-info">125 views</p></li>
+                                    <li class="right-list"><p class="views views-info">
+                                        <a class="fb-share" href="javascript:fbShare('<?php echo $uploadUri.$row['download_name']?>', 'Fb Share', 'Facebook share popup', 'http://goo.gl/dS52U', 520, 350)">Share</a>
+                                    </p></li>
                                 </ul>
                             </div>
                         </div>

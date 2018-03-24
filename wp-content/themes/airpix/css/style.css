@@ -16,6 +16,17 @@ body a {
   -moz-transition: 0.5s all;
   -ms-transition: 0.5s all;
 }
+.fb-share {
+	background: #4267b2;
+    border: 1px solid #4267b2;
+    color: #fff;
+	font-family: Helvetica, Arial, sans-serif;
+	vertical-align: middle;
+	border-radius: 3px;
+	font-size: 11px;
+	height: 20px;
+	padding: 2px 3px;
+}
 a.navbar-brand {
    padding: 0 0 0 1em;
 }
