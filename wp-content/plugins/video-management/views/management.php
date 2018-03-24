@@ -208,7 +208,9 @@ jQuery(document).ready(function(){
         <?php
             global $wpdb;
 
-            $query = "SELECT * FROM " . $wpdb->prefix . "videos  ORDER BY created_date desc";
+            $current_user = wp_get_current_user();
+
+            $query = "SELECT * FROM " . $wpdb->prefix . "videos  WHERE user_id = $current_user->ID ORDER BY created_date desc";
             $rows = $wpdb->get_results ( $query, 'ARRAY_A' );
 
             $delRecNonce = wp_create_nonce('delete_video');
