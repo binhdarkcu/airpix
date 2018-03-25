@@ -3,7 +3,7 @@
  * Plugin Name: Video Management
  * Plugin URI: http://127.0.0.1
  * Author URI: http://127.0.0.1
- * Description:This is beautiful responsive video grid with responsive lightbox.Add any number of video from admin panel.
+ * Description: Video management for admin.
  * Author: Admin
  * Version:1.0
  */
