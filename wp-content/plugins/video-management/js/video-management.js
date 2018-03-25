@@ -35,6 +35,8 @@ $o(document).ready(function () {
             success: function (data) {
                 // your callback here
                 console.log("success", data);
+                console.log($('#uploadSuccess'))
+                $('#uploadSuccess').show()
 //                location.reload();
             },
             error: function (error) {
@@ -62,7 +64,7 @@ $o(document).ready(function () {
         $o(progress_bar_id + " .progress-bar").css("width", +percent + "%");
         $o(progress_bar_id + " .status").text(percent + "%");
     };
-    
+
     $o("#uploadfiles").on("change", function (e) {
         var file = $o(this)[0].files[0];
         $o('#upload-filename').text(file.name);
@@ -85,9 +87,9 @@ $o(document).ready(function () {
             }).prop('currentTime', 4);
           }
         }).prop('src', URL.createObjectURL(file));
-        
+
     });
-    
+
     $o('#uploadfile_btn').click(function(){
         var file = $o("#uploadfiles")[0].files[0];
         if(file){

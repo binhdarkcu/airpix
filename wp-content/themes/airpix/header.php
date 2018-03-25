@@ -52,6 +52,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="header-top-right">
 				<div class="file">
                     <?php if( current_user_can('administrator') || current_user_can('renter')):?>
+                        <a href="<?php echo HOME_URL;?>">Home</a>
 					    <a href="<?php echo HOME_URL;?>/upload/">Upload</a>
 					<?php endif;?>
 				</div>

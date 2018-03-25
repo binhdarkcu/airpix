@@ -8,8 +8,11 @@
     </div>
         <div class="drop-navigation drop-navigation">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="<?php echo HOME_URL;?>" class="home-icon"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-            <li><a href="<?php echo HOME_URL;?>/my-videos" class="user-icon"><span class="glyphicon glyphicon-home glyphicon-blackboard" aria-hidden="true"></span>My Videos</a></li>
+            <li class="<?php if(is_home()) echo 'active';?>"><a href="<?php echo HOME_URL;?>" class="home-icon"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+            <?php if( current_user_can('administrator') || current_user_can('renter')):?>
+                <li class="<?php if(is_page('my-videos')) echo 'active';?>"><a href="<?php echo HOME_URL;?>/my-videos" class="user-icon"><span class="glyphicon glyphicon-home glyphicon-blackboard" aria-hidden="true"></span>My Videos</a></li>
+            <?php endif;?>
+
           </ul>
           <!-- script-for-menu -->
                 <script>

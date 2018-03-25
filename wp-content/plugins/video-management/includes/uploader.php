@@ -50,7 +50,7 @@ try {
     // You should name it uniquely.
     // DO NOT USE $_FILES['upfile']['name'] WITHOUT ANY VALIDATION !!
     // On this example, obtain safe unique name from its binary data.
-    
+
     $uploads = wp_upload_dir();
     $baseDir = $uploads ['basedir'];
     $baseDir = str_replace ( "\\", "/", $baseDir );
@@ -62,10 +62,10 @@ try {
         throw new RuntimeException('Failed to move uploaded file.');
     }
 
-    
+
     $thumbnail = '';
     if(isset($_POST) && isset($_POST['thumbnail'])){
-        
+
         $data = $_POST['thumbnail'];
         if (preg_match('/^data:image\/(\w+);base64,/', $data, $type)) {
         $data = substr($data, strpos($data, ',') + 1);
@@ -85,12 +85,12 @@ try {
         }
 
         $thumbnail = $hashedName.'.'.$type;
-        
+
         file_put_contents($pathToVideosFolder.'/'.$thumbnail, $data);
-        
+
     }
-    
-    
+
+
     global $wpdb;
     $created_date = $updated_date = current_time ( 'Y-m-d h:i:s' );
     $current_user = wp_get_current_user();
@@ -102,8 +102,8 @@ try {
 
     if($metadata) $duration = $metadata['length_formatted'];
 
-    $query = "INSERT INTO " . $wpdb->prefix . "videos 
-                                		(user_id, display_name, download_name, thumbnail, description, video_format, duration, created_date, updated_date) 
+    $query = "INSERT INTO " . $wpdb->prefix . "videos
+                                		(user_id, display_name, download_name, thumbnail, description, video_format, duration, created_date, updated_date)
                            				 VALUES ('$current_user->ID','$display_name','$download_name','$thumbnail','$description','$ext','$duration','$created_date','$updated_date')";
 
     $wpdb->query ( $query );
