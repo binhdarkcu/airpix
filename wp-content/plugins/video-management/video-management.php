@@ -7,24 +7,26 @@
  * Author: Admin
  * Version:1.0
  */
-
+CONST PILOT = 'pilots';
+CONST RENTER = 'renter';
 class WP_Video_Management{
 
   // Constructor
+    protected $_role;
     function __construct() {
 
+        $this->_role = PILOT;
         add_action( 'admin_menu', array( $this, 'wpa_add_menu' ));
         add_action ( 'wp_enqueue_scripts', array($this , 'wpa_plugin_styles_scripts') );
+        add_action( 'user_register', array($this, 'wpa_set_user_role'), 1000);
+        add_filter('pre_option_default_role', array($this, 'mv_change_user_role'));
         add_shortcode('video_list', array($this, 'create_video_grid_view'));
         add_shortcode('create_video_upload_form', array($this, 'video_upload_form_client'));
         register_activation_hook( __FILE__, array( $this, 'wpa_install' ) );
         register_deactivation_hook( __FILE__, array( $this, 'wpa_uninstall' ) );
     }
 
-    /*
-      * Actions perform at loading of admin menu
-      */
-
+    //Adding menu
     function wpa_add_menu() {
         $hook_suffix = add_menu_page( 'Video Management', 'Manage Videos', 'manage_options', 'manage-videos', array( $this, 'display_videos_management_page' ));
 
@@ -32,6 +34,7 @@ class WP_Video_Management{
 
     }
 
+    //Enqueue scripts/styles for admin only
     function wpa_admin_styles_scripts(){
         wp_enqueue_style ( 'style', plugins_url ( '/css/style.css', __FILE__ ) );
         wp_enqueue_script ( 'jquery' );
@@ -39,6 +42,7 @@ class WP_Video_Management{
         wp_enqueue_script ( 'video-management', plugins_url ( '/js/video-management.js', __FILE__ ) );
     }
 
+    //Enqueue scripts/styles
     function wpa_plugin_styles_scripts(){
         if (! is_admin()) {
             wp_enqueue_style ( 'video-gridview', plugins_url ( '/css/video-gridview.css', __FILE__ ) );
@@ -48,6 +52,7 @@ class WP_Video_Management{
         }
     }
 
+    //Render videos management page
     function display_videos_management_page() {
         $action = "gridview";
         if (isset ( $_GET ['action'] ) and $_GET ['action'] != '') {
@@ -65,23 +70,40 @@ class WP_Video_Management{
         }
     }
 
+    //TODO: remove this
     function create_video_grid_view(){
         $this->wpa_plugin_styles_scripts();
         include_once('views/video-grid.php');
     }
-    
+
+    //render upload screen
     function video_upload_form_client(){
         wp_enqueue_style ( 'style', plugins_url ( '/css/style.css', __FILE__ ) );
         wp_enqueue_script ( 'video-management', plugins_url ( '/js/video-management.js', __FILE__ ) );
         include_once('views/upload_form.php');
     }
-    /*
-     * Actions perform on loading of menu pages
-     */
-    function wpa_page_file_path() {
 
+    //override default user role to get this work
+    //TODO: remove this
+    function mv_change_user_role(){
+        return $this->_role;
+    }
 
+    //Set role for new register user
+    function wpa_set_user_role($user_id){
+        if(isset($_POST) && is_array($_POST)){
+            foreach ($_POST as $key => $value){
 
+                if(trim(strtolower($value)) === RENTER){
+                    $this->_role = RENTER;
+                }else{
+                    //Do nothing
+                    $this->_role = PILOT;
+                }
+            }
+        }else{
+            error_log('Hook on register user: Can not set role for new registered user.');
+        }
     }
 
     /*
