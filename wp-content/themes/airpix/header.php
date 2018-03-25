@@ -169,3 +169,23 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<div class="clearfix"> </div>
       </div>
     </nav>
+<script>
+    $(document).ready(function(){
+        if($('#rm_login_form .alert-error').length > 0) {
+            $.magnificPopup.open({
+               items:{
+                   src: '#small-dialog',
+                   type: 'inline'
+               },
+               fixedContentPos: false,
+               fixedBgPos: true,
+               overflowY: 'auto',
+               closeBtnInside: true,
+               preloader: false,
+               midClick: true,
+               removalDelay: 300,
+               mainClass: 'my-mfp-zoom-in'
+           });
+        }
+    })
+</script>

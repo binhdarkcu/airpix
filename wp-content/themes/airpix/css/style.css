@@ -526,9 +526,11 @@ a.btn.btn-primary.btn-lg.see-button.hvr-shutter-out-horizontal {
 }
 .resent-grid {
 	padding-left: 0.1em;
+	margin-bottom: 10px;
 }
 .resent-grid-img{
 	position:relative;
+	min-height: 205px;
 }
 .resent-grid-img iframe{
   width: 100%;
@@ -543,8 +545,8 @@ a.btn.btn-primary.btn-lg.see-button.hvr-shutter-out-horizontal {
 }
 .time{
   position: absolute;
-  top: 92% !important;
-  right: 0%;
+  bottom: 10px;
+  right: 10px;
   display: block;
 }
 .small-time {
@@ -565,19 +567,16 @@ a.btn.btn-primary.btn-lg.see-button.hvr-shutter-out-horizontal {
   font-size: 12px;
   margin: 0;
   color: #FFF;
-  padding: .2em .5em;
+	float: left;
   border-radius: 3px;
   -webkit-border-radius: 3px;
   -ms-border-radius: 3px;
   -o-border-radius: 3px;
   -moz-border-radius: 3px;
+  margin-left: 5px;
 }
 .clck {
-  position: absolute;
-  bottom: 1%;
-  right: 9%;
-  display: block;
-  z-index: 9;
+  float: left;
 }
 .small-clck{
   right: 12%;

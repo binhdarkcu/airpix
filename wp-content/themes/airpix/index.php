@@ -28,13 +28,14 @@
                     <?php $thumbnail = trim($row['thumbnail']) ? $uploadUri.$row['thumbnail']:'images/t1.jpg'?>
                         <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
                             <div class="resent-grid-img recommended-grid-img">
-                                <a href="#video-player-popup" data-src="<?php echo $uploadUri.$row['download_name']?>" class="show-video"><img src="<?php echo $thumbnail;?>" alt=""/></a>
+                                <a href="#video-player-popup" data-src="<?php echo $uploadUri.$row['download_name']?>" class="show-video" style="background:url(<?php echo $thumbnail;?>) no-repeat; background-size: cover;width: 100%;min-height: 205px;"></a>
                                 <div class="time">
+                                    <div class="clck">
+                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                    </div>
                                     <p><?php echo $row['duration']?></p>
                                 </div>
-                                <div class="clck">
-                                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                                </div>
+
                             </div>
                             <div class="resent-grid-info recommended-grid-info">
                                 <h3><a href="<?php echo site_url();?>" class="title title-info"><?php echo $row['display_name']?></a></h3>
