@@ -61,9 +61,7 @@ form.navbar-form.navbar-right {
     outline: none;
     box-shadow: 0 0 0;
 }
-.main{
-	min-height: 700px;
-}
+
 .top-search form input[type="text"]:focus {
     outline: none;
     box-shadow: 0 0 0;
@@ -144,7 +142,7 @@ form.navbar-form.navbar-right {
 }
 .main {
     padding: 5em 0 0 0;
-    height: 700px;
+    min-height: 700px;
 }
 ul.nav.nav-sidebar li.active a{
     background-color: #232323 !important;
