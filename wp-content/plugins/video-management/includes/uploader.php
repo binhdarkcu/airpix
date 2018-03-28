@@ -37,9 +37,6 @@ try {
     if (false === $ext = array_search(
             $finfo->file($_FILES['upfile']['tmp_name']),
             array(
-                'jpg' => 'image/jpeg',
-                'png' => 'image/png',
-                'gif' => 'image/gif',
                 'mp4' => 'video/mp4'
             ),
             true
@@ -102,7 +99,7 @@ try {
     global $wpdb;
     $created_date = $updated_date = current_time ( 'Y-m-d h:i:s' );
     $current_user = wp_get_current_user();
-    $display_name = $title || pathinfo($_FILES['upfile']['name'])['filename'];
+    $display_name = $title ? $title : pathinfo($_FILES['upfile']['name'])['filename'];
     $download_name = $hashedName.'.'.$ext;
     $duration = 0;
     $metadata = wp_read_video_metadata($pathToVideosFolder.'/'.$download_name);

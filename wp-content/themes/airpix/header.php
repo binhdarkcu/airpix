@@ -17,6 +17,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
  <base href="<?php echo get_bloginfo('template_url')?>/"></base>
 <?php wp_enqueue_style('wp-mediaelement');?>
 <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' media="all" />
+<link href="css/avgrund.css" rel='stylesheet' type='text/css' media="all" />
 <!-- //bootstrap -->
 <link href="css/dashboard.css" rel="stylesheet">
 <!-- Custom Theme files -->

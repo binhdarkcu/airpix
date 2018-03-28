@@ -33,10 +33,12 @@
 <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another link</a></li>
 </ul>
 </div>
+<div id="system-message"></div>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.avgrund.min.js"></script>
 <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 <?php wp_enqueue_script('wp-mediaelement');?>
 <?php wp_footer(); ?>

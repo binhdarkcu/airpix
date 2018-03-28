@@ -24,16 +24,19 @@
                     <div class="progress-bar"></div>
                     <div class="status">0%</div>
                 </div>
-                <div>
+                <div id="upload-video-info">
                     <label for="video-title">Video title</label>
                     <br/>
-                    <input type="text" name="title" id="video-title"/>
+                    <input type="text" name="title" id="video-title" required/>
+                    <br/>
                     <br/>
                     <label for="video-description">Video description</label>
                     <br/>
-                    <textarea name="" name="video-description" id="video-description"></textarea>
+                    <textarea name="video-description" id="video-description" rows="4" required></textarea>
                 </div>
-                <input id="uploadfile_btn" class="button-primary" type="button" value="Upload"/>
+                <div class="signin upload-video">
+                    <a  id="uploadfile_btn" class="button-primary"/>Upload</a>
+                </div>
                 <div id="video-preview">
                     <image id="image-preview" src=""/>
                 </div>

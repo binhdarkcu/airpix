@@ -19,6 +19,8 @@ $o(document).ready(function () {
 
         // add assoc key values, this will be posts values
         formData.append("upfile", this.file, this.getName());
+        formData.append("title", $o('#video-title').val());
+        formData.append("description",$o('#video-description').val());
         formData.append("thumbnail", document.getElementById('image-preview').src);
         formData.append("upload_file", true);
 
@@ -33,11 +35,10 @@ $o(document).ready(function () {
                 return myXhr;
             },
             success: function (data) {
-                // your callback here
                 console.log("success", data);
-                console.log($('#uploadSuccess'))
-                $('#uploadSuccess').show()
-//                location.reload();
+                // system-message
+                // console.log($('#uploadSuccess'));
+                // $('#uploadSuccess').show();
             },
             error: function (error) {
                 // handle error
@@ -96,5 +97,22 @@ $o(document).ready(function () {
             var upload = new Upload(file);
             upload.doUpload();
         }
+        // showMessage('ahahahah');
+        // console.log("gggg");
     });
+
+    // function showMessage(message){
+    //     console.log('hhh');
+    //     $o('#sytem-message').avgrund({
+    //         height: 200,
+    //         holderClass: 'custom',
+    //         showClose: true,
+    //         showCloseText: 'Close',
+    //         enableStackAnimation: true,
+    //         onBlurContainer: '.container',
+    //         template: message
+    //     });
+    //
+    //     $o('#sytem-message').click();
+    // }
 });

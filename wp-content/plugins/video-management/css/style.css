@@ -59,7 +59,6 @@
   filter: alpha(opacity=0);
   cursor: pointer;
 }
-#uploadfile_btn{margin: 0 auto; display: block; font-size: 25px;}
 
 .snapshot-generator {
   display: block;
@@ -78,3 +77,8 @@
     margin-top: 25px;
 }
 #video-preview #image-preview{width: 100%; border: 1px solid #ccc}
+#upload-video-info{width: 70%; margin: 0 auto;}
+#upload-video-info > label{font-size: 14px;}
+#video-description, #video-title{width: 100%; min-height: 30px; font-size: 16px; padding: 3px;}
+#video-description{ resize: none;}
+.signin.upload-video{text-align: center; float: none; cursor: pointer}
