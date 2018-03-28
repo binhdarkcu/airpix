@@ -16,13 +16,22 @@
                     <input type="file" id="uploadfiles" value="Choose file..">
                 </div>
                 <div class="upload-info">
-                    <h5 id="upload-filename">Select files to upload</h5>
+                    <h5 id="upload-filename">Select file to upload</h5>
 <!--                    <span>or</span>
                     <p>Drag and drop files</p>-->
                 </div>
                 <div id="progress-wrp">
                     <div class="progress-bar"></div>
                     <div class="status">0%</div>
+                </div>
+                <div>
+                    <label for="video-title">Video title</label>
+                    <br/>
+                    <input type="text" name="title" id="video-title"/>
+                    <br/>
+                    <label for="video-description">Video description</label>
+                    <br/>
+                    <textarea name="" name="video-description" id="video-description"></textarea>
                 </div>
                 <input id="uploadfile_btn" class="button-primary" type="button" value="Upload"/>
                 <div id="video-preview">

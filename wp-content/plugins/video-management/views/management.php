@@ -1,5 +1,5 @@
 <?php
-    $action = 'gridview';
+    $action = 'view';
     global $wpdb;
 
     if (isset ( $_GET ['action'] ) and $_GET ['action'] != '') {
@@ -54,7 +54,7 @@
             echo "<script type='text/javascript'> location.href='$location';</script>";
             exit();
 
-            //delete mutilple videos
+        //delete mutilple videos
         } else if (strtolower ( $action ) == strtolower ( 'deleteselected' )) {
 
 
@@ -115,6 +115,28 @@
 				exit();
 			}
                 }
+        }else if (strtolower ( $action ) == strtolower ( 'changepublishstatus' )){
+                $location = "admin.php?page=manage-videos";
+                $videoId = ( int ) htmlentities(strip_tags($_GET ['id']),ENT_QUOTES);
+
+                 try {
+
+                         $query = "SELECT * FROM " . $wpdb->prefix . "videos WHERE id=$videoId";
+                         $myrow = $wpdb->get_row ( $query );
+
+                         if (is_object ( $myrow )) {
+
+                                 $query = "UPDATE " . $wpdb->prefix . "videos SET is_published = NOT is_published WHERE id=$videoId";
+                                 $wpdb->query ( $query );
+                         }
+                 } catch ( Exception $e ) {
+
+                         $responsive_video_grid_messages = array();
+                         $responsive_video_grid_messages ['type'] = 'err';
+                         $responsive_video_grid_messages ['message'] = 'Error while editting video.';
+                 }
+                    echo "<script type='text/javascript'> location.href='$location';</script>";
+                    exit();
         }
     }
 
@@ -200,6 +222,7 @@ jQuery(document).ready(function(){
                         <th><span><?php echo _('Video Format');?></span></th>
                         <th><span><?php echo _('Duration'); ?></span></th>
                         <th><span><?php echo _('Created date');?></span></th>
+                        <th><span><?php echo _('Publish action'); ?></span></th>
                         <th><span><?php echo _('Action');?></span></th>
                     </tr>
             </thead>
@@ -217,7 +240,7 @@ jQuery(document).ready(function(){
             $rows = $wpdb->get_results ( $query, 'ARRAY_A' );
 
             $delRecNonce = wp_create_nonce('delete_video');
-
+            $publishVideoNonce = wp_create_nonce('publish_video_nonce');
             $uploadUri = site_url().'/wp-content/uploads/uploaded-videos/'
         ?>
 
@@ -236,8 +259,9 @@ jQuery(document).ready(function(){
                 <td data-title="Name" class="alignCenter"><a href="#video-player-popup" class="show-video" data-src="<?php echo $uploadUri.$row['download_name'];?>"><?php echo $row['display_name'] ;?></a></td>
                 <td data-title="Thumbnail" class="alignCenter"><img class="admin-video-thumbnail" src="<?php echo $uploadUri.$row['thumbnail'];?>"/></td>
                 <td data-title="Format" class="alignCenter"><?php echo $row['video_format']; ?></td>
-                <td data-title="Created Date" class="alignCenter"><?php echo $row['duration']; ?></td>
+                <td data-title="Duration" class="alignCenter"><?php echo $row['duration']; ?></td>
                 <td data-title="Updated Date" class="alignCenter"><?php echo $row['created_date']; ?></td>
+                <td data-title="Publish action" class="alignCenter"><a href="<?php echo "admin.php?page=manage-videos&action=changePublishStatus&id=".$row['id']."&nonce=$publishVideoNonce"?>" title="<?php echo $row['is_published'] ? _e('Unpublish'):_e('Publish');?> <?php echo _e('this video')?>"><?php echo $row['is_published'] ? _e('Unpublish'):_e('Publish');?></a></td>
                 <td data-title="Delete" class="alignCenter"><a href="<?php echo "admin.php?page=manage-videos&action=delete&id=".$row['id']."&nonce=$delRecNonce"?>" onclick="return confirmDelete();" title="delete">Delete</a></td>
             </tr>
 

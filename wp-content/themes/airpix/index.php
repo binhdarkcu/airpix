@@ -18,7 +18,11 @@
                     </script>
                     <?php
                     global $wpdb;
-                    $query = "SELECT V.*, U.display_name as user_name FROM " . $wpdb->prefix . "videos  AS V INNER JOIN ".$wpdb->prefix."users AS U ON V.user_id = U.ID ORDER BY V.created_date desc";
+                    $query = "SELECT V.*, U.display_name as user_name "
+                            . "FROM " . $wpdb->prefix . "videos  AS V "
+                            . "INNER JOIN ".$wpdb->prefix."users AS U "
+                            . "ON V.user_id = U.ID AND V.is_published = TRUE "
+                            . "ORDER BY V.created_date desc";
                     $rows = $wpdb->get_results ( $query, 'ARRAY_A' );
                     $rowCount = sizeof ( $rows );
                     $uploadUri = site_url().'/wp-content/uploads/uploaded-videos/'

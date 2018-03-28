@@ -90,21 +90,28 @@ try {
 
     }
 
-
+    $description = '';
+    $title = '';
+    if(isset($_POST) && $_POST['description']){
+        $description = trim(htmlspecialchars($_POST['description']));
+    }
+    
+    if(isset($_POST) && $_POST['title']){
+        $title = trim(htmlspecialchars($_POST['title']));
+    }
     global $wpdb;
     $created_date = $updated_date = current_time ( 'Y-m-d h:i:s' );
     $current_user = wp_get_current_user();
-    $display_name = pathinfo($_FILES['upfile']['name'])['filename'];
+    $display_name = $title || pathinfo($_FILES['upfile']['name'])['filename'];
     $download_name = $hashedName.'.'.$ext;
-    $description = 'des';
     $duration = 0;
     $metadata = wp_read_video_metadata($pathToVideosFolder.'/'.$download_name);
 
     if($metadata) $duration = $metadata['length_formatted'];
 
     $query = "INSERT INTO " . $wpdb->prefix . "videos
-                                		(user_id, display_name, download_name, thumbnail, description, video_format, duration, created_date, updated_date)
-                           				 VALUES ('$current_user->ID','$display_name','$download_name','$thumbnail','$description','$ext','$duration','$created_date','$updated_date')";
+                                		(user_id, display_name, download_name, thumbnail, description, video_format, duration, created_date, updated_date, is_published)
+                           				 VALUES ('$current_user->ID','$display_name','$download_name','$thumbnail','$description','$ext','$duration','$created_date','$updated_date', 0)";
 
     $wpdb->query ( $query );
     echo 'File is uploaded successfully.';
