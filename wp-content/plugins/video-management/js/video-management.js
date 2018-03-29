@@ -35,11 +35,8 @@ $o(document).ready(function () {
                 return myXhr;
             },
             success: function (data) {
-                console.log("success", data);
-                // system-message
-                // console.log($('#uploadSuccess'));
-                 $('#uploadSuccess').show();
-//                setMessage(data);
+                console.log("returned data", data);
+                setMessage(data);
             },
             error: function (error) {
                 // handle error
@@ -103,24 +100,46 @@ $o(document).ready(function () {
     });
 
     function setMessage(data){
-        if(data && data.status && data.message){
-            //have data
-        }else{
-            data = {status: 'ERROR', message: 'Parameters error!'}
-        }
-        var redirectTo = '/';
-        $o('#system-message').avgrund({
+        try {
+            
+            data = JSON.parse(data);
+            
+            if (!data || !data.status || !data.message) {
+                data = {status: 'ERROR', message: 'Parameters error!'}
+            }
+            
+            var redirectTo = '/';
+
+            console.log('data', data);
+
+            var custom_message = 'Please try again later!';
+            if (data.status == 'ERROR') {
+                redirectTo = '/upload';
+            } else {
+                custom_message = 'Please wait for admin approval to publish this video!';
+                redirectTo = '/my-videos';
+            }
+
+            $o('#system-message').avgrund({
                 height: 200,
                 holderClass: 'custom',
                 showClose: true,
                 showCloseText: 'Close',
                 enableStackAnimation: true,
                 onBlurContainer: '.container',
-                onUnload: function (elem) { 
+                onUnload: function (elem) {
                     location.href = redirectTo;
                 },
-                template: '<p class="popup-message">'+message+'</p>'
-         });
-        $o('#system-message').trigger('click');
+                template: '<div>' + 
+                            '<h3 class="popup-title">'+ data.status +'</h3> ' +
+                            '<p class="popup-message">' + data.message + '</p>'+
+                            '<p class="popup-message"> '+ custom_message +'</p>' +
+                        '</div>'
+            });
+            $o('#system-message').trigger('click');
+        } catch (error) {
+            alert('Something went wrong! Check console log!');
+            console.log(error);
+        }
     }
 });

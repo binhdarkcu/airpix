@@ -82,3 +82,5 @@
 #video-description, #video-title{width: 100%; min-height: 30px; font-size: 16px; padding: 3px;}
 #video-description{ resize: none;}
 .signin.upload-video{text-align: center; float: none; cursor: pointer}
+.popup-title{text-align: center;}
+.popup-message{font-size: 12px; text-align: center}
