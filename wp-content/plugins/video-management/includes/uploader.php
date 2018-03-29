@@ -1,15 +1,23 @@
 <?php
 require_once('../../../../wp-load.php');
 require_once( ABSPATH . 'wp-admin/includes/media.php' );
+const STATUS_SUCCESS = 'SUCCESS';
+const STATUS_ERROR = 'ERROR';
 try {
 
     // Undefined | Multiple Files | $_FILES Corruption Attack
     // If this request falls under any of them, treat it invalid.
+    $result = array();
+    $result['status'] = STATUS_ERROR;
+    $result['message'] = 'Something went wrong!';
     if (
         !isset($_FILES['upfile']['error']) ||
         is_array($_FILES['upfile']['error'])
     ) {
-        throw new RuntimeException('Invalid parameters.');
+//        throw new RuntimeException('Invalid parameters.');
+        $result['message'] = 'Invalid parameters!';
+        echo json_encode($result);
+        die();
     }
 
     // Check $_FILES['upfile']['error'] value.
@@ -17,18 +25,26 @@ try {
         case UPLOAD_ERR_OK:
             break;
         case UPLOAD_ERR_NO_FILE:
-            throw new RuntimeException('No file sent.');
+            $result['message'] = 'No file sent!';
+            echo json_encode($result);
+            die();
         case UPLOAD_ERR_INI_SIZE:
         case UPLOAD_ERR_FORM_SIZE:
-            throw new RuntimeException('Exceeded filesize limit. 1');
+                $result['message'] = 'Exceeded filesize limit!';
+                echo json_encode($result);
+                die();
         default:
-            throw new RuntimeException('Unknown errors.');
+                $result['message'] = 'Unknown errors!';
+                echo json_encode($result);
+                die();
     }
 
     // You should also check filesize here.
     //200MB
     if ($_FILES['upfile']['size'] > 200000000) {
-        throw new RuntimeException('Exceeded filesize limit. 2');
+            $result['message'] = 'Exceeded filesize limit!';
+            echo json_encode($result);
+            die();
     }
 
     // DO NOT TRUST $_FILES['upfile']['mime'] VALUE !!
@@ -41,7 +57,9 @@ try {
             ),
             true
         )) {
-        throw new RuntimeException('Invalid file format.');
+        $result['message'] = 'Invalid file format!';
+        echo json_encode($result);
+        die();
     }
 
     // You should name it uniquely.
@@ -56,7 +74,9 @@ try {
     if (!move_uploaded_file($_FILES['upfile']['tmp_name'],
         sprintf($pathToVideosFolder.'/%s.%s', $hashedName, $ext)
     )) {
-        throw new RuntimeException('Failed to move uploaded file.');
+        $result['message'] = 'Failed to move uploaded file!';
+        echo json_encode($result);
+        die();
     }
 
 
@@ -65,20 +85,26 @@ try {
 
         $data = $_POST['thumbnail'];
         if (preg_match('/^data:image\/(\w+);base64,/', $data, $type)) {
-        $data = substr($data, strpos($data, ',') + 1);
-        $type = strtolower($type[1]); // jpg, png, gif
+            $data = substr($data, strpos($data, ',') + 1);
+            $type = strtolower($type[1]); // jpg, png, gif
 
-        if (!in_array($type, [ 'jpg', 'jpeg', 'gif', 'png' ])) {
-            throw new \Exception('invalid image type');
-        }
+            if (!in_array($type, [ 'jpg', 'jpeg', 'gif', 'png' ])) {
+                $result['message'] = 'Invalid image type!';
+                echo json_encode($result);
+                die();
+            }
 
-        $data = base64_decode($data);
+            $data = base64_decode($data);
 
-        if ($data === false) {
-            throw new \Exception('base64_decode failed');
-        }
+            if ($data === false) {
+                $result['message'] = 'Base64_decode failed!';
+                echo json_encode($result);
+                die();
+            }
         } else {
-        throw new \Exception('did not match data URI with image data');
+            $result['message'] = 'Did not match data URI with image data!';
+            echo json_encode($result);
+            die();
         }
 
         $thumbnail = $hashedName.'.'.$type;
@@ -111,7 +137,10 @@ try {
                            				 VALUES ('$current_user->ID','$display_name','$download_name','$thumbnail','$description','$ext','$duration','$created_date','$updated_date', 0)";
 
     $wpdb->query ( $query );
-    echo 'File is uploaded successfully.';
+    $result['status'] = STATUS_SUCCESS;
+    $result['message'] = 'Your video has been uploaded successfully!';
+    echo json_encode($result);
+    die();
 
 } catch (RuntimeException $e) {
 

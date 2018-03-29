@@ -548,6 +548,8 @@ a.btn.btn-primary.btn-lg.see-button.hvr-shutter-out-horizontal {
   bottom: 10px;
   right: 10px;
   display: block;
+  background: rgba(0,0,0,0.6);
+  padding: 2px 4px;
 }
 .small-time {
     top: 87% !important;
@@ -673,7 +675,7 @@ a.btn.btn-primary.btn-lg.see-button.hvr-shutter-out-horizontal {
 .recommended-grid-info h3 {
   margin: 0;
   overflow: hidden;
-  height: 54px;
+  height: 30px;
 }
 .recommended-grid-info h5 {
   margin: 0;
@@ -2839,3 +2841,4 @@ background: url(../images/social.png) no-repeat 0px 0px;
 #video-player-popup{margin: 0 auto; max-width: 640px; position: relative}
 #video-player-popup .mfp-close{position: absolute; color: #fff; top: -35px; right: -35px; font-size: 35px;}
 .logged-in{color: #000!important; background: #fff!important; cursor: default!important;}
+.description{font-size: 12px; height: 60px;overflow: auto; margin: 0}

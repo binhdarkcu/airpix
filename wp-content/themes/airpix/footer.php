@@ -33,7 +33,7 @@
 <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another link</a></li>
 </ul>
 </div>
-<div id="system-message"></div>
+<a href="#" id="system-message"></a>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->

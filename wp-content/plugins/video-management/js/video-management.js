@@ -23,7 +23,7 @@ $o(document).ready(function () {
         formData.append("description",$o('#video-description').val());
         formData.append("thumbnail", document.getElementById('image-preview').src);
         formData.append("upload_file", true);
-
+        
         $o.ajax({
             type: "POST",
             url: UploadUrl,
@@ -38,10 +38,13 @@ $o(document).ready(function () {
                 console.log("success", data);
                 // system-message
                 // console.log($('#uploadSuccess'));
-                // $('#uploadSuccess').show();
+                 $('#uploadSuccess').show();
+//                setMessage(data);
             },
             error: function (error) {
                 // handle error
+                var data = {status: "ERROR", message: 'Something went wrong!'};
+                setMessage(data);
                 console.log("error", error);
             },
             async: true,
@@ -97,22 +100,27 @@ $o(document).ready(function () {
             var upload = new Upload(file);
             upload.doUpload();
         }
-        // showMessage('ahahahah');
-        // console.log("gggg");
     });
 
-    // function showMessage(message){
-    //     console.log('hhh');
-    //     $o('#sytem-message').avgrund({
-    //         height: 200,
-    //         holderClass: 'custom',
-    //         showClose: true,
-    //         showCloseText: 'Close',
-    //         enableStackAnimation: true,
-    //         onBlurContainer: '.container',
-    //         template: message
-    //     });
-    //
-    //     $o('#sytem-message').click();
-    // }
+    function setMessage(data){
+        if(data && data.status && data.message){
+            //have data
+        }else{
+            data = {status: 'ERROR', message: 'Parameters error!'}
+        }
+        var redirectTo = '/';
+        $o('#system-message').avgrund({
+                height: 200,
+                holderClass: 'custom',
+                showClose: true,
+                showCloseText: 'Close',
+                enableStackAnimation: true,
+                onBlurContainer: '.container',
+                onUnload: function (elem) { 
+                    location.href = redirectTo;
+                },
+                template: '<p class="popup-message">'+message+'</p>'
+         });
+        $o('#system-message').trigger('click');
+    }
 });
