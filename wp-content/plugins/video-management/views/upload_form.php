@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    const UploadUrl = "<?php echo plugins_url().'/video-management/includes/uploader.php';?>";
+    const UploadUrl = "<?php echo plugins_url().'/video-management/api/uploader.php';?>";
 </script>
 <div class="upload">
 
