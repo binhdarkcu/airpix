@@ -14,7 +14,7 @@ $filePath = $pathToVideosFolder.'/2ecf7dd304bf8234a8dbf993a9b683123ccda083152229
 if(isset($_GET)){
     
 }
-wp_verify_nonce($_GET['wp_nonce'], 'unique-video-id_'.$_GET['id']);
+var_dump(wp_verify_nonce($_GET['wp_nonce'], 'unique_video_id_'.$_GET['vid']));
 echo '<pre>';
 var_dump($_GET);
 echo '</pre>';
