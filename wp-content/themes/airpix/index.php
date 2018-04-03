@@ -25,14 +25,15 @@
                             . "ORDER BY V.created_date desc";
                     $rows = $wpdb->get_results ( $query, 'ARRAY_A' );
                     $rowCount = sizeof ( $rows );
-                    $uploadUri = site_url().'/wp-content/uploads/uploaded-videos/'
+                    $uploadUri = site_url().'/wp-content/uploads/uploaded-videos/';
+                    $videoUrl = site_url().'/wp-content/plugins/video-management/api/get_video.php';
+                    
                     ?>
                     <?php foreach ($rows as $row):?>
-
                     <?php $thumbnail = trim($row['thumbnail']) ? $uploadUri.$row['thumbnail']:'images/t1.jpg'?>
                         <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
                             <div class="resent-grid-img recommended-grid-img">
-                                <a href="#video-player-popup" data-src="<?php echo $uploadUri.$row['download_name']?>" class="show-video" style="background:url(<?php echo $thumbnail;?>) no-repeat; background-size: cover;width: 100%;min-height: 205px;"></a>
+                                <a href="#video-player-popup" data-src="<?php echo wp_nonce_url( $videoUrl.'?vid='.$row['id'], 'unique_video_id_'.$row['id'], 'wp_nonce' )?>" class="show-video" style="background:url(<?php echo $thumbnail;?>) no-repeat; background-size: cover;width: 100%;min-height: 205px;"></a>
                                 <div class="time">
                                     <div class="clck">
                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
