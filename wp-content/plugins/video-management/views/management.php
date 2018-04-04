@@ -38,8 +38,9 @@
                          $wpcurrentdir = dirname ( __FILE__ );
                          $wpcurrentdir = str_replace ( "\\", "/", $wpcurrentdir );
                          $videoToDel = $pathToVideosFolder . '/' . $video_name;
-
-                         @unlink ( $videoToDel );
+                         $imageToDel = $pathToVideosFolder . '/' . $myrow->thumbnail;
+                         @unlink ($videoToDel);
+                         @unlink ($imageToDel);
 
                          $query = "DELETE FROM  " . $wpdb->prefix . "videos WHERE id=$deleteId";
                          $wpdb->query ( $query );
@@ -241,7 +242,8 @@ jQuery(document).ready(function(){
 
             $delRecNonce = wp_create_nonce('delete_video');
             $publishVideoNonce = wp_create_nonce('publish_video_nonce');
-            $uploadUri = site_url().'/wp-content/uploads/uploaded-videos/'
+            $uploadUri = site_url().'/wp-content/uploads/uploaded-videos/';
+            $videoUrl = site_url().'/wp-content/plugins/video-management/api/get_video.php';
         ?>
 
         <?php foreach ($rows as $row) :
@@ -256,7 +258,7 @@ jQuery(document).ready(function(){
                         type="checkbox" value="<?php echo $row['id'] ?>"
                         name="thumbnails[]"></td>
                 <td data-title="Id" class="alignCenter"><?php echo $userInfo->user_nicename; ?></td>
-                <td data-title="Name" class="alignCenter"><a href="#video-player-popup" class="show-video" data-src="<?php echo $uploadUri.$row['download_name'];?>"><?php echo $row['display_name'] ;?></a></td>
+                <td data-title="Name" class="alignCenter"><a href="#video-player-popup" class="show-video" data-src="<?php echo $videoUrl.'?vid='.$row['id'];?>"><?php echo $row['display_name'] ;?></a></td>
                 <td data-title="Thumbnail" class="alignCenter"><img class="admin-video-thumbnail" src="<?php echo $uploadUri.$row['thumbnail'];?>"/></td>
                 <td data-title="Format" class="alignCenter"><?php echo $row['video_format']; ?></td>
                 <td data-title="Duration" class="alignCenter"><?php echo $row['duration']; ?></td>
