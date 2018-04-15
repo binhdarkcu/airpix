@@ -7,8 +7,9 @@
  * Author: Admin
  * Version:1.0
  */
-CONST PILOT = 'pilots';
-CONST RENTER = 'renter';
+define( 'PILOT', 'pilots' );
+define( 'RENTER', 'renter' );
+
 class WP_Video_Management{
 
   // Constructor
