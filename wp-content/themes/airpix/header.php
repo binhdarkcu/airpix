@@ -79,7 +79,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										</div>
 										<div class="signup">
                                             <?php //get_template_part('tpl','signup')?>
-                                            <?php echo do_shortcode('[RM_Form id="3"]')?>
+                                            <?php echo do_shortcode('[wpmem_form register]')?>
 <!--											<form>-->
 <!--												<input type="text" class="email" placeholder="Mobile Number" maxlength="10" pattern="[1-9]{1}\d{9}" title="Enter a valid mobile number" />-->
 <!--											</form>-->
@@ -151,7 +151,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!--								<input type="password" placeholder="Password" required="required" pattern=".{6,}" title="Minimum 6 characters required" autocomplete="off" />-->
 <!--								<input type="submit"  value="LOGIN"/>-->
 <!--							</form>-->
-                            <?php echo do_shortcode('[RM_Login]');?>
+                            <?php echo do_shortcode('[wpmem_form login]');?>
 <!--							<div class="forgot">-->
 <!--								<a href="#">Forgot password ?</a>-->
 <!--							</div>-->
