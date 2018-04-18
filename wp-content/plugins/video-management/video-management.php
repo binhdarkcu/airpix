@@ -7,7 +7,7 @@
  * Author: Admin
  * Version:1.0
  */
-define( 'PILOT', 'pilots' );
+define( 'PILOT', 'pilot' );
 define( 'RENTER', 'renter' );
 
 class WP_Video_Management{
@@ -20,7 +20,7 @@ class WP_Video_Management{
         add_action( 'admin_menu', array( $this, 'wpa_add_menu' ));
         add_action ( 'wp_enqueue_scripts', array($this , 'wpa_plugin_styles_scripts') );
         add_action( 'user_register', array($this, 'wpa_set_user_role'), 1000);
-        add_filter('pre_option_default_role', array($this, 'mv_change_user_role'));
+//        add_filter('pre_option_default_role', array($this, 'mv_change_user_role'));
         add_shortcode('video_list', array($this, 'create_video_grid_view'));
         add_shortcode('create_video_upload_form', array($this, 'video_upload_form_client'));
         register_activation_hook( __FILE__, array( $this, 'wpa_install' ) );
@@ -92,11 +92,16 @@ class WP_Video_Management{
 
     //Set role for new register user
     function wpa_set_user_role($user_id){
+        error_log( print_r($_POST, true));
+        error_log( print_r($user_id, true));
         if(isset($_POST) && is_array($_POST)){
             foreach ($_POST as $key => $value){
 
                 if(trim(strtolower($value)) === RENTER){
                     $this->_role = RENTER;
+                    $u = new WP_User( $user_id );
+                    $u->remove_role( 'pilot' );
+                    $u->add_role( 'renter' );
                 }else{
                     //Do nothing
                     $this->_role = PILOT;

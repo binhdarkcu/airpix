@@ -68,24 +68,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										<h3>Create Account</h3>
 										<div class="social-sits">
 											<div class="facebook-button">
-												<a href="#">Connect with Facebook</a>
+												<a href="<?php echo site_url();?>">Connect with Facebook</a>
 											</div>
 											<div class="chrome-button">
-												<a href="#">Connect with Google</a>
+												<a href="<?php echo site_url();?>">Connect with Google</a>
 											</div>
 											<div class="button-bottom">
 												<p>Already have an account? <a href="#small-dialog" class="play-icon popup-with-zoom-anim">Login</a></p>
 											</div>
 										</div>
 										<div class="signup">
-                                            <?php //get_template_part('tpl','signup')?>
-                                            <?php echo do_shortcode('[wpmem_form register]')?>
-<!--											<form>-->
-<!--												<input type="text" class="email" placeholder="Mobile Number" maxlength="10" pattern="[1-9]{1}\d{9}" title="Enter a valid mobile number" />-->
-<!--											</form>-->
-<!--											<div class="continue-button">-->
-<!--												<a href="#small-dialog3" class="hvr-shutter-out-horizontal play-icon popup-with-zoom-anim">CONTINUE</a>-->
-<!--											</div>-->
+                                            <?php echo do_shortcode('[wpmem_form register redirect_to="'.HOME_URL.']')?>
 										</div>
 										<div class="clearfix"> </div>
 									</div>
@@ -93,10 +86,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										<h3>Create Account</h3>
 										<div class="social-sits">
 											<div class="facebook-button">
-												<a href="#">Connect with Facebook</a>
+												<a href="<?php echo site_url();?>">Connect with Facebook</a>
 											</div>
 											<div class="chrome-button">
-												<a href="#">Connect with Google</a>
+												<a href="<?php echo site_url();?>">Connect with Google</a>
 											</div>
 											<div class="button-bottom">
 												<p>Already have an account? <a href="#small-dialog" class="play-icon popup-with-zoom-anim">Login</a></p>
@@ -146,15 +139,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							</div>
 						</div>
 						<div class="signup">
-<!--							<form>-->
-<!--								<input type="text" class="email" placeholder="Enter email / mobile" required="required" pattern="([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?"/>-->
-<!--								<input type="password" placeholder="Password" required="required" pattern=".{6,}" title="Minimum 6 characters required" autocomplete="off" />-->
-<!--								<input type="submit"  value="LOGIN"/>-->
-<!--							</form>-->
-                            <?php echo do_shortcode('[wpmem_form login]');?>
-<!--							<div class="forgot">-->
-<!--								<a href="#">Forgot password ?</a>-->
-<!--							</div>-->
+                            <?php echo do_shortcode('[wpmem_form login redirect_to="'.HOME_URL.'"]');?>
 						</div>
 						<div class="clearfix"> </div>
 					</div>
