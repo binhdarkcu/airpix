@@ -1,4 +1,4 @@
-<?php get_header()?>
+<?php get_header();?>
 <?php echo do_shortcode('[create_video_upload_form]');?>
 <?php get_footer()?>
 <div id="uploadSuccess" class="popup">
@@ -20,7 +20,7 @@
             $('#uploadSuccess').hide();
             $('.progress-bar').css('width','0');
             $('.status').text('0%');
-            $('#image-preview').attr('src','')
+            $('#image-preview').attr('src','');
         })
     })
 </script>

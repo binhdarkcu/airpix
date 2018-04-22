@@ -92,8 +92,8 @@ class WP_Video_Management{
 
     //Set role for new register user
     function wpa_set_user_role($user_id){
-        error_log( print_r($_POST, true));
-        error_log( print_r($user_id, true));
+//        error_log( print_r($_POST, true));
+//        error_log( print_r($user_id, true));
         if(isset($_POST) && is_array($_POST)){
             foreach ($_POST as $key => $value){
 

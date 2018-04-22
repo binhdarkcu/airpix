@@ -1,8 +1,8 @@
 <?php
 require_once('../../../../wp-load.php');
 require_once( ABSPATH . 'wp-admin/includes/media.php' );
-const STATUS_SUCCESS = 'SUCCESS';
-const STATUS_ERROR = 'ERROR';
+define('STATUS_SUCCESS','SUCCESS');
+define('STATUS_ERROR', 'ERROR');
 try {
 
     // Undefined | Multiple Files | $_FILES Corruption Attack
@@ -49,15 +49,18 @@ try {
 
     // DO NOT TRUST $_FILES['upfile']['mime'] VALUE !!
     // Check MIME Type by yourself.
-    $finfo = new finfo(FILEINFO_MIME_TYPE);
+
+    $path = $_FILES['upfile']['name'];
+    $ext = pathinfo($path, PATHINFO_EXTENSION);
+    $ext = strtolower($ext);
     if (false === $ext = array_search(
-            $finfo->file($_FILES['upfile']['tmp_name']),
+            $ext,
             array(
-                'mp4' => 'video/mp4'
+                'mp4' => 'mp4'
             ),
             true
         )) {
-        $result['message'] = 'Invalid file format!';
+        $result['message'] = $ext;
         echo json_encode($result);
         die();
     }
@@ -88,7 +91,7 @@ try {
             $data = substr($data, strpos($data, ',') + 1);
             $type = strtolower($type[1]); // jpg, png, gif
 
-            if (!in_array($type, [ 'jpg', 'jpeg', 'gif', 'png' ])) {
+            if (!in_array($type, array('jpg', 'jpeg', 'gif', 'png'))) {
                 $result['message'] = 'Invalid image type!';
                 echo json_encode($result);
                 die();
@@ -125,7 +128,9 @@ try {
     global $wpdb;
     $created_date = $updated_date = current_time ( 'Y-m-d h:i:s' );
     $current_user = wp_get_current_user();
-    $display_name = $title ? $title : pathinfo($_FILES['upfile']['name'])['filename'];
+
+    $file_info = pathinfo($path);
+    $display_name = $title ? $title : $file_info['filename'];
     $download_name = $hashedName.'.'.$ext;
     $duration = 0;
     $metadata = wp_read_video_metadata($pathToVideosFolder.'/'.$download_name);
