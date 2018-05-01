@@ -26,14 +26,13 @@
                     $rows = $wpdb->get_results ( $query, 'ARRAY_A' );
                     $rowCount = sizeof ( $rows );
                     $uploadUri = site_url().'/wp-content/uploads/uploaded-videos/';
-                    $videoUrl = site_url().'/wp-content/plugins/video-management/api/get_video.php';
 
                     ?>
                     <?php foreach ($rows as $row):?>
                     <?php $thumbnail = trim($row['thumbnail']) ? $uploadUri.$row['thumbnail']:'images/t1.jpg'?>
                         <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
                             <div class="resent-grid-img recommended-grid-img">
-                                <a href="#video-player-popup" data-src="<?php echo $videoUrl.'?vid='.$row['id']?>" class="show-video" style="background:url(<?php echo $thumbnail;?>) no-repeat; background-size: cover;width: 100%;min-height: 205px;"></a>
+                                <a href="<?php echo site_url().'/videos/?vid='.$row['id']?>"  class="show-video" style="background:url(<?php echo $thumbnail;?>) no-repeat; background-size: cover;width: 100%;min-height: 205px;"></a>
                                 <div class="time">
                                     <div class="clck">
                                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
@@ -43,12 +42,12 @@
 
                             </div>
                             <div class="resent-grid-info recommended-grid-info">
-                                <h3><a href="<?php echo site_url();?>" class="title title-info"><?php echo $row['display_name']?></a></h3>
+                                <h3><a href="<?php echo site_url().'/videos/?vid='.$row['id']?>" class="title title-info"><?php echo $row['display_name']?></a></h3>
                                 <p class="description"><?php echo $row['description']?></p>
                                 <ul>
                                     <li><p class="author author-info"><a href="<?php echo site_url();?>" class="author"><?php echo $row['user_name']?></a></p></li>
                                     <li class="right-list"><p class="views views-info">
-                                        <a class="fb-share" href="javascript:fbShare('<?php echo $uploadUri.$row['download_name']?>', 'Fb Share', 'Facebook share popup', 'http://goo.gl/dS52U', 520, 350)">Share</a>
+                                        <a class="fb-share" href="javascript:fbShare('<?php echo site_url().'/videos/'.$row['id']?>', 'Fb Share', 'Facebook share popup', 'http://goo.gl/dS52U', 520, 350)">Share</a>
                                     </p></li>
                                 </ul>
                             </div>
@@ -61,38 +60,6 @@
             </div>
         </div>
 <div class="clearfix"> </div>
-
-<script type="text/javascript">
-    jQuery(document).ready(function(){
-        jQuery ('.show-video').magnificPopup({
-            type: 'inline',
-            fixedContentPos: false,
-            fixedBgPos: true,
-            overflowY: 'auto',
-            closeBtnInside: true,
-            preloader: false,
-            midClick: true,
-            removalDelay: 300,
-            mainClass: 'my-mfp-zoom-in',
-            callbacks: {
-                close: function() {
-                    jQuery('.mejs-offscreen, .mejs-container').remove();
-                },
-                beforeOpen: function(){
-                    var videoSrc = this.st.el.data('src');
-                    jQuery('<video>', {
-                        id: 'video-player',
-                        src: videoSrc,
-                        width: 640,
-                        height: 360
-                    }).appendTo('#video-player-popup');
-
-                    jQuery('#video-player').mediaelementplayer();
-                }
-            }
-        });
-    })
-</script>
 
 <?php get_footer()?>
 
