@@ -50,6 +50,7 @@ try {
             <h3><?php echo $row->display_name;?></h3>
         </div>
         <h3>User comments section:</h3>
+        <?php comments_template(); ?>
         <script>
             function fbShare(url, title, descr, image, winWidth, winHeight) {
                 var winTop = (screen.height / 2) - (winHeight / 2);
