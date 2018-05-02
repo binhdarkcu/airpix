@@ -55,6 +55,7 @@
                     </div>
                     <div class="resent-grid-info recommended-grid-info">
                         <h3><a href="<?php echo site_url().'/videos/?vid='.$row['id']?>" class="title title-info"><?php echo $row['display_name']?></a></h3>
+                         <p class="description"><?php echo $row['description']?></p>
                         <ul>
                             <li><p class="author author-info"><a href="<?php echo site_url();?>" class="author"><?php echo $row['user_name']?></a></p></li>
                             <li class="right-list"><p class="views views-info">
