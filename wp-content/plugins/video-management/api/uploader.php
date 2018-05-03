@@ -132,9 +132,23 @@ try {
 
     if($metadata) $duration = $metadata['length_formatted'];
 
+    //Create a post for video
+    global $user_ID;
+    $new_post = array(
+        'post_title' => $display_name,
+        'post_content' => $description,
+        'post_status' => 'publish',
+        'post_date' => date('Y-m-d H:i:s'),
+        'post_author' => $user_ID,
+        'post_type' => 'airpix_video',
+        'post_category' => array(0)
+    );
+    $post_id = wp_insert_post($new_post);
+    //Insert into videos tables
+    
     $query = "INSERT INTO " . $wpdb->prefix . "videos
-                                		(user_id, display_name, download_name, thumbnail, description, video_format, duration, created_date, updated_date, is_published)
-                           				 VALUES ('$current_user->ID','$display_name','$download_name','$thumbnail','$description','$ext','$duration','$created_date','$updated_date', 0)";
+                                		(user_id, display_name, download_name, thumbnail, description, video_format, duration, created_date, updated_date, is_published, post_id)
+                                                         VALUES ('$current_user->ID','$display_name','$download_name','$thumbnail','$description','$ext','$duration','$created_date','$updated_date', 0, '$post_id}')";
 
     $wpdb->query ( $query );
     $result['status'] = STATUS_SUCCESS;

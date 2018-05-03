@@ -6,4 +6,4 @@
  * and open the template in the editor.
  */
 
-echo "Post display here";
+echo "Normal post display";

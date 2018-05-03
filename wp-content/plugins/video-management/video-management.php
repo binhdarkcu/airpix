@@ -7,8 +7,8 @@
  * Author: Admin
  * Version:1.0
  */
-CONST PILOT = 'pilots';
-CONST RENTER = 'renter';
+const PILOT = 'pilots';
+const RENTER = 'renter';
 class WP_Video_Management{
 
   // Constructor
@@ -123,6 +123,7 @@ class WP_Video_Management{
 		description text NULL,
 		video_format varchar(50) NOT NULL,
 		duration varchar(50) NOT NULL,
+                post_id mediumint(9) NOT NULL,
                 is_published boolean DEFAULT false,
                 created_date datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 		updated_date datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
