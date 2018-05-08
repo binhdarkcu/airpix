@@ -6,7 +6,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
 body{
 	background:#fff;
-	font-size:100%;
 	font-family: 'Open Sans', sans-serif;
 }
 #uploadSuccess {
@@ -2838,12 +2837,10 @@ background: url(../images/social.png) no-repeat 0px 0px;
 
 #comments {
 	clear: both;
-	padding: 2em 0 0.5em;
 }
 
 .comments-title {
 	font-size: 20px;
-	font-size: 1.25rem;
 	margin-bottom: 1.5em;
 }
 
@@ -2864,7 +2861,6 @@ background: url(../images/social.png) no-repeat 0px 0px;
 
 .comment-author {
 	font-size: 16px;
-	font-size: 1rem;
 	margin-bottom: 0.4em;
 	position: relative;
 	z-index: 2;
@@ -2882,7 +2878,7 @@ background: url(../images/social.png) no-repeat 0px 0px;
 }
 
 .comment-meta {
-	margin-bottom: 1.5em;
+	margin-bottom: 0.5em;
 }
 
 .comment-metadata {
@@ -2906,8 +2902,7 @@ background: url(../images/social.png) no-repeat 0px 0px;
 .comment-body {
 	color: #333;
 	font-size: 14px;
-	font-size: 0.875rem;
-	margin-bottom: 4em;
+	margin-bottom: 1.2em;
 }
 
 .comment-reply-link {
@@ -2950,6 +2945,28 @@ background: url(../images/social.png) no-repeat 0px 0px;
 .form-submit {
 	text-align: right;
 }
+h2.screen-reader-text{font-size: 20px}
+#reply-title{font-size: 20px}
+#submit{
+    padding: 8px 20px;
+    background: #21DEEF;
+    color: #FFF;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 3px;
+    border: none;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+}
+#submit:hover{
+    text-decoration: none;
+    color: #272C2E;
+    background: #F7F7F7;
+}
+
 #comment{width: 100%}
 .navbar-fixed-top{z-index: 999}
 /*test*/
