@@ -17,7 +17,7 @@ $vid = -1;
 $post_id = get_the_ID();
 
 try {
-    $query = "SELECT * FROM " . $wpdb->prefix . "videos WHERE post_id=$post_id LIMIT 1";
+    $query = "SELECT * FROM " . $wpdb->prefix . "videos WHERE post_id=$post_id AND is_published = TRUE LIMIT 1";
 
     //If not admin, only show videos have been published
     if(!current_user_can('administrator')){
