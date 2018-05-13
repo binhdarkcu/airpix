@@ -12,8 +12,8 @@
                 <div class="upload-file">
                     <div class="services-icon">
                         <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+                        <input type="file" id="uploadfiles" value="Choose file..">
                     </div>
-                    <input type="file" id="uploadfiles" value="Choose file..">
                 </div>
                 <div class="upload-info">
                     <h5 id="upload-filename">Select file to upload</h5>

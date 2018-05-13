@@ -68,6 +68,12 @@ $o(document).ready(function () {
 
     $o("#uploadfiles").on("change", function (e) {
         var file = $o(this)[0].files[0];
+        if(!file){
+            $o('#upload-filename').text("");
+            var preview = document.getElementById('image-preview');
+            preview.src = "";
+            return;
+        }
         $o('#upload-filename').text(file.name);
         //Generates preview
         var canvas_elem = $o( '<canvas class="snapshot-generator"></canvas>' ).appendTo(document.body)[0];
@@ -96,6 +102,8 @@ $o(document).ready(function () {
         if(file){
             var upload = new Upload(file);
             upload.doUpload();
+        }else{
+            console.log("No file selected!");
         }
     });
 

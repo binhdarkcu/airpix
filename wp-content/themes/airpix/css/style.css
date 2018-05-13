@@ -1723,11 +1723,11 @@ span.glyphicon.glyphicon-user {
     width: 75px;
     height: 75px;
     display: inline-block;
-    border: 0px;
+    border: 0;
     outline: none;
     position: absolute;
-    left: 47.6%;
-    top: 231px;
+    left: 0;
+    top: 0;
     cursor: pointer;
     border-radius: 5%;
     -webkit-border-radius: 5%;
