@@ -12,7 +12,7 @@
             <?php if( current_user_can('administrator') || current_user_can('renter')):?>
                 <li class="<?php if(is_page('my-videos')) echo 'active';?>"><a href="<?php echo HOME_URL;?>/my-videos" class="user-icon"><span class="glyphicon glyphicon-home glyphicon-blackboard" aria-hidden="true"></span>My Videos</a></li>
             <?php endif;?>
-
+            <li class="<?php if(is_page('search-pilots')) echo 'active';?>"><a href="<?php echo HOME_URL;?>/search-pilots" class="user-icon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>Search Pilots</a></li>
           </ul>
           <!-- script-for-menu -->
                 <script>

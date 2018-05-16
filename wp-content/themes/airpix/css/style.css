@@ -229,11 +229,11 @@ ul.cl-effect-1,ul.cl-effect-2 {
     text-decoration: none;
 }
 .glyphicon-film{
-	margin: 0 2em 0 0;
+    margin: 0 2em 0 0;
     font-size: 16px !important;
 }
-.glyphicon-home {
-	margin: 0 2em 0 0;
+.glyphicon-home, .glyphicon-search {
+    margin: 0 2em 0 0;
     font-size: 16px !important;
 }
 .glyphicon-music {
