@@ -17,16 +17,31 @@
     </style>
   </head>
   <body>
-    <div id="map"></div>
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <div id="map"></div>
+      </div>
     <script>
       var map;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: -34.397, lng: 150.644},
-          zoom: 8
+          zoom: 19
         });
+        getLocation();
       }
+      function getLocation() {
+        if (navigator.geolocation) {
+         navigator.geolocation.getCurrentPosition(showPosition);
+         } else {
+        alert("Geolocation is not supported by this browser.");
+        }
+       }
+    function showPosition(position) {
+      var lat = position.coords.latitude;
+      var lng = position.coords.longitude;
+      map.setCenter(new google.maps.LatLng(lat, lng));
+    }
     </script>
 <?php get_footer()?>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyw5YGqIQvjH2OzzW_mJ1NeuA4IZ8KWD8f&callback=initMap"
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyw5YGqIQvjH2OzzW_mJ1NeuA4IZ8KWD8&callback=initMap"
     async defer></script>
