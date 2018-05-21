@@ -17,7 +17,7 @@
     </style>
   </head>
   <body>
-      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <div id="map-container" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
           <div id="map"></div>
       </div>
     <script>
@@ -27,6 +27,7 @@
           center: {lat: -34.397, lng: 150.644},
           zoom: 19
         });
+
         getLocation();
       }
       function getLocation() {
@@ -40,6 +41,11 @@
       var lat = position.coords.latitude;
       var lng = position.coords.longitude;
       map.setCenter(new google.maps.LatLng(lat, lng));
+        var marker = new google.maps.Marker({
+          position: {lat: lat, lng: lng},
+          map: map,
+          title: 'Hello World!'
+        });
     }
     </script>
 <?php get_footer()?>
