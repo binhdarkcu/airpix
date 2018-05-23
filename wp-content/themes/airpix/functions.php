@@ -1,10 +1,14 @@
 <?php
+//Define constants
 define('TEMPLATE_PATH',get_bloginfo('template_url'));
 define('HOME_URL',get_home_url());
 define('BlOG_NAME',get_bloginfo('blog_name'));
 define('SLOGAN', get_bloginfo('description'));
-
+//Hooks
+add_action( 'wp_enqueue_scripts', 'ajax_enqueue' );
+add_action( 'init', 'create_posttype' );
 add_action('init','add_get_val');
+add_action( 'wp_ajax_update_location', 'update_user_location' );
 
 //get param on url
 function add_get_val() {
@@ -58,4 +62,16 @@ function create_posttype() {
     register_post_type('airpix_video', $args);
 }
 
-add_action( 'init', 'create_posttype' );
+//create admin ajax url
+function ajax_enqueue() {
+      wp_enqueue_script( 'ajax-script', get_template_directory_uri() . '/js/airpix.js', array('jquery') );
+      wp_localize_script( 'ajax-script', 'ajaxConfig', array( 'url' => admin_url( 'admin-ajax.php' ) ) );
+ }
+ 
+ function update_user_location(){
+    // Make your response and echo it.
+     $result = array('message' => "OK");
+    echo json_encode($result);
+    // Don't forget to stop execution afterward.
+    wp_die();
+ }
