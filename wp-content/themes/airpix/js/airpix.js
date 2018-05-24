@@ -46,11 +46,20 @@ function showCurrentPosition(position) {
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
     map.setCenter(new google.maps.LatLng(lab6TMA.lat, lab6TMA.lng));
+
+
+    var image = new google.maps.MarkerImage(
+            "images/current-location.png",
+            new google.maps.Size(71, 71),
+            new google.maps.Point(0, 0),
+            new google.maps.Point(17, 34),
+            new google.maps.Size(30, 30));
+
     pilotMarkers.push(
             new google.maps.Marker({
                 position: lab6TMA,
-                draggable: true,
                 map: map,
+                icon: image,
                 title: 'You are here!'
             })
             );
