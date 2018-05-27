@@ -44,6 +44,9 @@
 
                          $query = "DELETE FROM  " . $wpdb->prefix . "videos WHERE id=$deleteId";
                          $wpdb->query ( $query );
+                         
+                         //delete associated post
+                         wp_delete_post($myrow->post_id, true);
 
                  }
          } catch ( Exception $e ) {
@@ -90,12 +93,17 @@
 							$wpcurrentdir = dirname ( __FILE__ );
 							$wpcurrentdir = str_replace ( "\\", "/", $wpcurrentdir );
                                                         $videotoDel = $pathToVideosFolder . '/' . $video_name;
+                                                        $imageToDel = $pathToVideosFolder . '/' . $myrow->thumbnail;
 
                                                         @unlink ( $videotoDel );
+                                                        @unlink ($imageToDel);
 
 							$query = "DELETE FROM " . $wpdb->prefix . "videos WHERE id=$video";
 							$wpdb->query ( $query );
-
+                                                        //delete associated post
+                                                        
+                                                        wp_delete_post($myrow->post_id, true);
+                                                        
 							$responsive_video_grid_messages = array();
 							$responsive_video_grid_messages ['type'] = 'succ';
 							$responsive_video_grid_messages ['message'] = 'selected videos deleted successfully.';
@@ -142,11 +150,7 @@
     }
 
 ?>
-<!--<h2>
-Videos<a class="button add-new-h2"
-        href="admin.php?page=manage-videos&action=addnew">Add
-        New</a>
-</h2>-->
+
 <script type="text/javascript">
 function  confirmDelete_bulk(){
     var topval=document.getElementById("action_upper").value;

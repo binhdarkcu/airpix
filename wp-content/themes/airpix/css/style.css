@@ -2989,3 +2989,9 @@ h2.screen-reader-text{font-size: 20px}
     height: auto;
     margin-left: 95px;
 }
+.white-popup-block{
+    background: white;
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+}

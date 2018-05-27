@@ -1,5 +1,4 @@
-var $o = jQuery.noConflict();
-$o(document).ready(function () {
+$(document).ready(function () {
     var Upload = function (file) {
         this.file = file;
     };
@@ -19,16 +18,16 @@ $o(document).ready(function () {
 
         // add assoc key values, this will be posts values
         formData.append("upfile", this.file, this.getName());
-        formData.append("title", $o('#video-title').val());
-        formData.append("description",$o('#video-description').val());
+        formData.append("title", $('#video-title').val());
+        formData.append("description",$('#video-description').val());
         formData.append("thumbnail", document.getElementById('image-preview').src);
         formData.append("upload_file", true);
         
-        $o.ajax({
+        $.ajax({
             type: "POST",
             url: UploadUrl,
             xhr: function () {
-                var myXhr = $o.ajaxSettings.xhr();
+                var myXhr = $.ajaxSettings.xhr();
                 if (myXhr.upload) {
                     myXhr.upload.addEventListener('progress', that.progressHandling, false);
                 }
@@ -62,22 +61,23 @@ $o(document).ready(function () {
             percent = Math.ceil(position / total * 100);
         }
         // update progressbars classes so it fits your code
-        $o(progress_bar_id + " .progress-bar").css("width", +percent + "%");
-        $o(progress_bar_id + " .status").text(percent + "%");
+        $(progress_bar_id + " .progress-bar").css("width", +percent + "%");
+        $(progress_bar_id + " .status").text(percent + "%");
     };
 
-    $o("#uploadfiles").on("change", function (e) {
-        var file = $o(this)[0].files[0];
+    $("#uploadfiles").on("change", function (e) {
+        var file = $(this)[0].files[0];
         if(!file){
-            $o('#upload-filename').text("");
+            $('#upload-filename').text("");
             var preview = document.getElementById('image-preview');
             preview.src = "";
             return;
         }
-        $o('#upload-filename').text(file.name);
+        $('#video-title').val(file.name.replace(/\.[^.$]+$/, ''));
+        $('#upload-filename').text(file.name);
         //Generates preview
-        var canvas_elem = $o( '<canvas class="snapshot-generator"></canvas>' ).appendTo(document.body)[0];
-        var $video = $o( '<video muted class="snapshot-generator"></video>' ).appendTo(document.body);
+        var canvas_elem = $( '<canvas class="snapshot-generator"></canvas>' ).appendTo(document.body)[0];
+        var $video = $( '<video muted class="snapshot-generator"></video>' ).appendTo(document.body);
         var step_2_events_fired = 0;
         $video.one('loadedmetadata loadeddata suspend', function() {
           if (++step_2_events_fired == 3) {
@@ -97,8 +97,8 @@ $o(document).ready(function () {
 
     });
 
-    $o('#uploadfile_btn').click(function(){
-        var file = $o("#uploadfiles")[0].files[0];
+    $('#uploadfile_btn').click(function(){
+        var file = $("#uploadfiles")[0].files[0];
         if(file){
             var upload = new Upload(file);
             upload.doUpload();
@@ -128,7 +128,7 @@ $o(document).ready(function () {
                 redirectTo = '/my-videos';
             }
 
-            $o('#system-message').avgrund({
+            $('#system-message').avgrund({
                 height: 200,
                 holderClass: 'custom',
                 showClose: true,
@@ -144,7 +144,7 @@ $o(document).ready(function () {
                             '<p class="popup-message"> '+ custom_message +'</p>' +
                         '</div>'
             });
-            $o('#system-message').trigger('click');
+            $('#system-message').trigger('click');
         } catch (error) {
             alert('Something went wrong! Check console log!');
             console.log(error);

@@ -1,8 +1,7 @@
 <?php
 require_once('../../../../wp-load.php');
 require_once( ABSPATH . 'wp-admin/includes/media.php' );
-const STATUS_SUCCESS = 'SUCCESS';
-const STATUS_ERROR = 'ERROR';
+define('STATUS_SUCCESS','SUCCESS');
 try {
 
     // Undefined | Multiple Files | $_FILES Corruption Attack

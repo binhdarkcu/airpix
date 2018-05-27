@@ -4,6 +4,8 @@ define('TEMPLATE_PATH',get_bloginfo('template_url'));
 define('HOME_URL',get_home_url());
 define('BlOG_NAME',get_bloginfo('blog_name'));
 define('SLOGAN', get_bloginfo('description'));
+define('STATUS_OK', "OK");
+define('STATUS_ERROR', "ERROR");
 //Hooks
 add_action( 'wp_enqueue_scripts', 'ajax_enqueue' );
 add_action( 'init', 'create_posttype' );
@@ -69,8 +71,25 @@ function ajax_enqueue() {
  }
  
  function update_user_location(){
-    // Make your response and echo it.
-     $result = array('message' => "OK");
+    $current_user = wp_get_current_user();
+    
+    $lat = $_POST['lat'];
+    $lng = $_POST['lng'];
+    
+    //default messages
+    $result = array(
+        'message'=> $lat.":".$lng,
+        'status' => STATUS_OK
+    );
+    
+    //user is logged in
+    if($current_user){
+        update_user_meta($current_user->ID, 'user_position', json_encode(array('lat'=> $lat, 'lng' => $lng)));
+    }else{
+        $result['message'] = 'You are not logged in';
+        $result['status'] = STATUS_ERROR;
+    }
+    
     echo json_encode($result);
     // Don't forget to stop execution afterward.
     wp_die();
