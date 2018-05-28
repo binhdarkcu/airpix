@@ -6,7 +6,7 @@
 <!--Redirect user to homepage if not logged in-->
 <?php if(!is_user_logged_in()):?>
     <script type="text/javascript">
-        location.href = "<?php echo site_url();?>";
+//        location.href = "<?php echo site_url();?>";
     </script>
 <?php endif;?>
 
@@ -17,12 +17,11 @@ $vid = -1;
 $post_id = get_the_ID();
 
 try {
-    $query = "SELECT * FROM " . $wpdb->prefix . "videos WHERE post_id=$post_id AND is_published = TRUE LIMIT 1";
+    $query = "SELECT * FROM " . $wpdb->prefix . "videos WHERE post_id=$post_id";
 
     //If not admin, only show videos have been published
-    if(!current_user_can('administrator')){
-        $query.=" AND is_published = TRUE";
-    }
+    $query.= " AND is_published = ". (!current_user_can('administrator') ? "TRUE":"FALSE");
+    $query.= " LIMIT 1";
 
     $row = $wpdb->get_row ( $query );
 
