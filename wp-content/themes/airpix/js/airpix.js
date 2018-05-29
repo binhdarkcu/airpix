@@ -159,7 +159,7 @@ function UpdatePositionButton(controlDiv) {
         $.ajax({
             type: "post",
             dataType: "json",
-            url: ajaxConfig.url,
+            url: globalConfig.admin_ajax_url,
             data: {
                 'action': 'update_location',
                 'lat': userPos.lat,
