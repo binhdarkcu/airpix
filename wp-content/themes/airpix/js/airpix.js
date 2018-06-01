@@ -1,25 +1,128 @@
 var map;
 var userPos = {lat: 10.85606544054808, lng: 106.63119583072796};
 //example locations
+var distance = 500; // meters
+var maxPilots = 10;
 var lab6TMA = {lat: 10.85606544054808, lng: 106.63119583072796}
 var pilotMarkers = [];
 var pilots = [
-    {lat: 10.855838898689916, lng: 106.63088737669125},
-    {lat: 10.855294686885607, lng: 106.63118778410092},
-    {lat: 10.85558129010037, lng: 106.62981878651135},
-    {lat: 10.855404797916394, lng: 106.62985901964657},
-    {lat: 10.856220085566322, lng: 106.63203965557568},
-    {lat: 10.855301950621058, lng: 106.63112345845013},
-    {lat: 10.854595980599653, lng: 106.62988964230328},
-    {lat: 10.854050696642918, lng: 106.62893209368497},
-    {lat: 10.856934066000505, lng: 106.62997831691939},
-    {lat: 10.857287048457364, lng: 106.63182904113967},
-    {lat: 10.856581083126574, lng: 106.63104047168929},
-    {lat: 10.855290984991285, lng: 106.62810287249863},
-    {lat: 10.852909646514199, lng: 106.62956199420273},
-    {lat: 10.857511747837211, lng: 106.6311485200282}
+    {
+        ID: 123,
+        display_name: "Display name 1",
+        position: {lat: 10.855838898689916, lng: 106.63088737669125},
+        user_email: "plilot1@example.com",
+        user_nicename: "Nice name 0"
+    },
+    {
+        ID: 124,
+        display_name: "Display name 2",
+        position: {lat: 10.855294686885607, lng: 106.63118778410092},
+        user_email: "plilot2@example.com",
+        user_nicename: "Nice name 1"
+    },
+    {
+        ID: 125,
+        display_name: "Display name 3",
+        position: {lat: 10.85558129010037, lng: 106.62981878651135},
+        user_email: "plilot3@example.com",
+        user_nicename: "Nice name 2"
+    },
+    {
+        ID: 126,
+        display_name: "Display name 4",
+        position: {lat: 10.855301950621058, lng: 106.63112345845013},
+        user_email: "plilot4@example.com",
+        user_nicename: "Nice name 3"
+    },
+    {
+        ID: 127,
+        display_name: "Display name 5",
+        position: {lat: 10.856220085566322, lng: 106.63203965557568},
+        user_email: "plilot5@example.com",
+        user_nicename: "Nice name 4"
+    },
+    {
+        ID: 128,
+        display_name: "Display name 6",
+        position: {lat: 10.855404797916394, lng: 106.62985901964657},
+        user_email: "plilot6@example.com",
+        user_nicename: "Nice name 5"
+    },
+    {
+        ID: 129,
+        display_name: "Display name 7",
+        position: {lat: 10.855290984991285, lng: 106.62810287249863},
+        user_email: "plilot7@example.com",
+        user_nicename: "Nice name 6"
+    },
+    {
+        ID: 130,
+        display_name: "Display name 8",
+        position: {lat: 10.857511747837211, lng: 106.6311485200282},
+        user_email: "plilot8@example.com",
+        user_nicename: "Nice name 7"
+    },
+    {
+        ID: 131,
+        display_name: "Display name 9",
+        position: {lat: 10.852909646514199, lng: 106.62956199420273},
+        user_email: "plilot9@example.com",
+        user_nicename: "Nice name 8"
+    },
+    {
+        ID: 132,
+        display_name: "Display name 10",
+        position: {lat: 10.856581083126574, lng: 106.63104047168929},
+        user_email: "plilot10@example.com",
+        user_nicename: "Nice name 9"
+    },
+    {
+        ID: 133,
+        display_name: "Display name 11",
+        position: {lat: 10.857287048457364, lng: 106.63182904113967},
+        user_email: "plilot11@example.com",
+        user_nicename: "Nice name 10"
+    },
+    {
+        ID: 133,
+        display_name: "Display name 12",
+        position: {lat: 10.856934066000505, lng: 106.62997831691939},
+        user_email: "plilot11@example.com",
+        user_nicename: "Nice name 11"
+    },
+    {
+        ID: 135,
+        display_name: "Display name 13",
+        position: {lat: 10.854050696642918, lng: 106.62893209368497},
+        user_email: "plilot12@example.com",
+        user_nicename: "Nice name 12"
+    },
+    {
+        ID: 136,
+        display_name: "Display name 14",
+        position: {lat: 10.854595980599653, lng: 106.62988964230328},
+        user_email: "plilot13@example.com",
+        user_nicename: "Nice name 13"
+    },
+
 ];
 
+
+var rad = function(x) {
+  return x * Math.PI / 180;
+};
+
+var getDistance = function (p1, p2) {
+  var R = 6378137; // Earth’s mean radius in meter
+  var dLat = rad(p2.lat - p1.lat);
+  var dLong = rad(p2.lng - p1.lng);
+  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(rad(p1.lat)) * Math.cos(rad(p2.lat)) *
+    Math.sin(dLong / 2) * Math.sin(dLong / 2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  var d = R * c;
+  return d; // returns the distance in meter
+};
 //**
 //*get user location by geolocation API
 function getLocation() {
@@ -67,7 +170,7 @@ function displayCurrentPosOnMap(lat, lng) {
                 icon: image,
                 title: 'You are here!'
             })
-            );
+        );
 }
 
 //**
@@ -76,22 +179,52 @@ function displayCurrentPosOnMap(lat, lng) {
 function showCurrentPosition(position) {
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
-    userPos = {lat: lat, lng: lng};
+//    userPos = {lat: lat, lng: lng};
+//*************************************
+    userPos = lab6TMA;
+    lat = lab6TMA.lat;
+    lng = lab6TMA.lng;
+//**************************************
+    
     map.setCenter(new google.maps.LatLng(lat, lng));
     map.setZoom(16);
 
     displayCurrentPosOnMap(lat, lng);
+    if(globalConfig.pilots && globalConfig.pilots.length > 0){
+//        var _pilots = globalConfig.pilots;
+//**********************************************************
+       _pilots = pilots;
+//**********************************************************
+        var _distancedPilots = [];
+        _pilots.forEach(function(pilot, index){
+            
+            //get all users with distance
+            var userDistance = pilot.position ? getDistance(userPos, pilot.position) : 999999999;
+            
+            if(userDistance <= distance){
+                //should add distance to item to compare
+                pilot.distance = userDistance;
+                _distancedPilots.push(pilot);
+            }
 
-    pilots.forEach(function (item, index) {
-        pilotMarkers.push(
-                new google.maps.Marker({
-                    position: item,
-                    draggable: true,
-                    map: map,
-                    title: 'Pilot ' + index
-                })
-                );
-    });
+        });
+        
+        //order and get ${maxPilots} closest
+        _distancedPilots;
+        
+        
+    }
+
+//    pilots.forEach(function (item, index) {
+//        pilotMarkers.push(
+//                new google.maps.Marker({
+//                    position: item,
+//                    draggable: true,
+//                    map: map,
+//                    title: 'Pilot ' + index
+//                })
+//                );
+//    });
 }
 
 //**

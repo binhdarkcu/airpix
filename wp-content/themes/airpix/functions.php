@@ -102,8 +102,22 @@ function update_user_location() {
 }
 
 function get_pilots(){
+    
+    $current_user = wp_get_current_user();
+    
     $result = array();
-    $pilots = get_users( 'role=pilot' );
+    
+    $args = array(
+        'role' => 'pilot'
+    );
+    
+    //exclude current user position
+    if($current_user->ID){
+        $args['exclude'] = array($current_user->ID);
+    }
+    
+    $pilots = get_users($args);
+    
     foreach ($pilots as $pilot){
         $result[] = array(
             'ID' => $pilot->data->ID,
