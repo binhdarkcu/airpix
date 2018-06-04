@@ -2,7 +2,7 @@ var map;
 var userPos = {lat: 10.85606544054808, lng: 106.63119583072796};
 //example locations
 var distance = 500; // meters
-var maxPilots = 10;
+var maxPilots = 5;
 var lab6TMA = {lat: 10.85606544054808, lng: 106.63119583072796}
 var pilotMarkers = [];
 var pilots = [
@@ -104,25 +104,25 @@ var pilots = [
         user_email: "plilot13@example.com",
         user_nicename: "Nice name 13"
     },
-
 ];
 
 
-var rad = function(x) {
-  return x * Math.PI / 180;
+var rad = function (x) {
+    return x * Math.PI / 180;
 };
 
 var getDistance = function (p1, p2) {
-  var R = 6378137; // Earth’s mean radius in meter
-  var dLat = rad(p2.lat - p1.lat);
-  var dLong = rad(p2.lng - p1.lng);
-  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(rad(p1.lat)) * Math.cos(rad(p2.lat)) *
-    Math.sin(dLong / 2) * Math.sin(dLong / 2);
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  var d = R * c;
-  return d; // returns the distance in meter
+    var R = 6378137; // Earth’s mean radius in meter
+    var dLat = rad(p2.lat - p1.lat);
+    var dLong = rad(p2.lng - p1.lng);
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(rad(p1.lat)) * Math.cos(rad(p2.lat)) *
+            Math.sin(dLong / 2) * Math.sin(dLong / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+    return d; // returns the distance in meter
 };
+
 //**
 //*get user location by geolocation API
 function getLocation() {
@@ -170,7 +170,7 @@ function displayCurrentPosOnMap(lat, lng) {
                 icon: image,
                 title: 'You are here!'
             })
-        );
+            );
 }
 
 //**
@@ -185,48 +185,69 @@ function showCurrentPosition(position) {
     lat = lab6TMA.lat;
     lng = lab6TMA.lng;
 //**************************************
-    
+
     map.setCenter(new google.maps.LatLng(lat, lng));
     map.setZoom(16);
 
     displayCurrentPosOnMap(lat, lng);
-    if(globalConfig.pilots && globalConfig.pilots.length > 0){
+    if (globalConfig.pilots && globalConfig.pilots.length > 0) {
 //        var _pilots = globalConfig.pilots;
 //**********************************************************
-       _pilots = pilots;
+        _pilots = pilots;
 //**********************************************************
         var _distancedPilots = [];
-        _pilots.forEach(function(pilot, index){
-            
+        _pilots.forEach(function (pilot, index) {
+
             //get all users with distance
             var userDistance = pilot.position ? getDistance(userPos, pilot.position) : 999999999;
-            
-            if(userDistance <= distance){
+
+            if (userDistance <= distance) {
                 //should add distance to item to compare
                 pilot.distance = userDistance;
                 _distancedPilots.push(pilot);
             }
 
         });
-        
-        //order and get ${maxPilots} closest
-        _distancedPilots;
-        
-        
-    }
 
-//    pilots.forEach(function (item, index) {
-//        pilotMarkers.push(
-//                new google.maps.Marker({
-//                    position: item,
-//                    draggable: true,
-//                    map: map,
-//                    title: 'Pilot ' + index
-//                })
-//                );
-//    });
+        //order and get ${maxPilots} closest
+        _distancedPilots.sort(function (a, b) {
+            return parseFloat(a.distance) - parseFloat(b.distance);
+        });
+
+        var infowindow = new google.maps.InfoWindow();
+
+        for (var i = 0; i < maxPilots && _distancedPilots.length >= maxPilots; i++) {
+            
+            var marker = new google.maps.Marker({
+                position: _distancedPilots[i].position, 
+                draggable: true, 
+                map: map, 
+                title: _distancedPilots[i].display_name
+            });
+            
+            makeInfoWindowEvent(map, infowindow, _distancedPilots[i], marker);
+            
+            pilotMarkers.push(marker);
+        }
+
+    }
 }
 
+function makeInfoWindowEvent(map, infowindow, pilot, marker) {
+    var html = '<div id="connect-to-pilot"> <div> <b>Pilot name:</b> <span>Sam Smith</span> </div> <div> <b>Pilot email:</b> <span>pilot@example.com</span> </div> <div> <b>Drone Info:</b> <span>MH370 Model super fast on the Sky</span> </div> <div> <b>Services:</b> <select id="service_duration"> <option value="15">15 minutes</option> <option value="30">30 minutes</option> <option value="60">1 hour</option> <option value="120">2 hours</option> <option value="180">3 hours</option> <option value="1440">All day</option> </select> </div> <div> <button id="start_connecting">Connect!</button> </div> </div>';
+    var container = document.createElement('div');
+    container.innerHTML = html;
+    var div = container.firstChild;
+    div.onclick = function(){handleConnectButton(pilot.display_name)};
+    google.maps.event.addListener(marker, 'click', function () {
+        infowindow.setContent(div);
+        infowindow.open(map, marker);
+    });
+}
+
+function handleConnectButton(str){
+    console.log(str);
+};
 //**
 //Create current position button
 //*/
@@ -314,7 +335,7 @@ function UpdatePositionButton(controlDiv) {
 function initMap() {
     //setup toast position
     toastr.options.positionClass = "toast-bottom-right";
-    
+
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 10.818468635310658, lng: 106.65879249572754},
         zoom: 8

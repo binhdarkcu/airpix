@@ -1,9 +1,9 @@
 <div class="col-sm-3 col-md-2 sidebar">
     <div class="top-navigation">
         <div class="t-menu">MENU</div>
-        <div class="t-img">
+<!--        <div class="t-img">
             <img src="images/lines.png" alt="">
-        </div>
+        </div>-->
         <div class="clearfix"> </div>
     </div>
     <div class="drop-navigation drop-navigation">
