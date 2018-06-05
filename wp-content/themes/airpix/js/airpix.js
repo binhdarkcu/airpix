@@ -234,19 +234,32 @@ function showCurrentPosition(position) {
 }
 
 function makeInfoWindowEvent(map, infowindow, pilot, marker) {
-    var html = '<div id="connect-to-pilot"> <div> <b>Pilot name:</b> <span>Sam Smith</span> </div> <div> <b>Pilot email:</b> <span>pilot@example.com</span> </div> <div> <b>Drone Info:</b> <span>MH370 Model super fast on the Sky</span> </div> <div> <b>Services:</b> <select id="service_duration"> <option value="15">15 minutes</option> <option value="30">30 minutes</option> <option value="60">1 hour</option> <option value="120">2 hours</option> <option value="180">3 hours</option> <option value="1440">All day</option> </select> </div> <div> <button id="start_connecting">Connect!</button> </div> </div>';
+    var html = '<div class="pilot-name"> <b>Pilot name:</b> <span>{pilot_email}</span> </div> <div class="pilot-email"> <b>Pilot email:</b> <span>{pilot_email}</span> </div> <div class="drone-info"> <b>Drone Info:</b> <span>{user_drone_info}</span> </div> <div class="services-selection"> <b>Services:</b> <select id="service_duration"> <option value="15">15 minutes</option> <option value="30">30 minutes</option> <option value="60">1 hour</option> <option value="120">2 hours</option> <option value="180">3 hours</option> <option value="1440">All day</option> </select> </div> </div>';
     var container = document.createElement('div');
-    container.innerHTML = html;
-    var div = container.firstChild;
-    div.onclick = function(){handleConnectButton(pilot.display_name)};
+    container.id = "connect-to-pilot";
+    
+    var connectBtn = document.createElement('button');
+    connectBtn.id = "start_connecting";
+    $(connectBtn).text("Connect!");
+    connectBtn.onclick = function(){handleConnectButton(infowindow)};
+    
+    var userAction = document.createElement('div');
+    userAction.class = "user-action";
+    $(userAction).append(connectBtn);
+    
+    $(container).append([html, userAction]);
+
     google.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent(div);
+        infowindow.setContent(container);
         infowindow.open(map, marker);
     });
 }
 
-function handleConnectButton(str){
-    console.log(str);
+function handleConnectButton(infowindow){
+    console.log(infowindow);
+    
+    //close the window
+    infowindow.close();
 };
 //**
 //Create current position button

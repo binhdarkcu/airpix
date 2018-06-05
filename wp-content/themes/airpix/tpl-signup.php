@@ -44,19 +44,19 @@
 </div>
 
 <div id="connect-to-pilot">
-    <div>
+    <div class="pilot-name">
         <b>Pilot name:</b>
-        <span>Sam Smith</span>
+        <span>{pilot_email}</span>
     </div>
-    <div>
+    <div class="pilot-email">
         <b>Pilot email:</b>
-        <span>pilot@example.com</span>
+        <span>{pilot_email}</span>
     </div>
-    <div>
+    <div class="drone-info">
         <b>Drone Info:</b>
-        <span>MH370 Model super fast on the Sky</span>
+        <span>{user_drone_info}</span>
     </div>
-    <div>
+    <div class="services-selection">
         <b>Services:</b>
         <select id="service_duration">
             <option value="15">15 minutes</option>
@@ -67,7 +67,7 @@
             <option value="1440">All day</option>
         </select>
     </div>
-    <div>
+    <div class="user-action">
         <button id="start_connecting">Connect!</button>
     </div>
 </div>
