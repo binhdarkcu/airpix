@@ -117,14 +117,15 @@ function get_pilots(){
     }
     
     $pilots = get_users($args);
-    
+
     foreach ($pilots as $pilot){
         $result[] = array(
             'ID' => $pilot->data->ID,
             'user_nicename' => $pilot->data->user_nicename,
             'display_name' => $pilot->data->display_name,
             'user_email' => $pilot->data->user_email,
-            'position' => get_user_meta($pilot->data->ID, 'user_position', true)
+            'position' => get_user_meta($pilot->data->ID, 'user_position', true),
+            'drone_info' => get_user_meta($pilot->data->ID, 'user_drone_info', true)
         );
     }
     

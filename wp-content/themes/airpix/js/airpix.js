@@ -234,7 +234,10 @@ function showCurrentPosition(position) {
 }
 
 function makeInfoWindowEvent(map, infowindow, pilot, marker) {
-    var html = '<div class="pilot-name"> <b>Pilot name:</b> <span>{pilot_email}</span> </div> <div class="pilot-email"> <b>Pilot email:</b> <span>{pilot_email}</span> </div> <div class="drone-info"> <b>Drone Info:</b> <span>{user_drone_info}</span> </div> <div class="services-selection"> <b>Services:</b> <select id="service_duration"> <option value="15">15 minutes</option> <option value="30">30 minutes</option> <option value="60">1 hour</option> <option value="120">2 hours</option> <option value="180">3 hours</option> <option value="1440">All day</option> </select> </div> </div>';
+    var html = '<div class="pilot-name"> <b>Pilot name:</b> <span>{pilot_name}</span> </div> <div class="pilot-email"> <b>Pilot email:</b> <span>{pilot_email}</span> </div> <div class="drone-info"> <b>Drone Info:</b> <span>{user_drone_info}</span> </div> <div class="services-selection"> <b>Services:</b> <select id="service_duration"> <option value="15">15 minutes</option> <option value="30">30 minutes</option> <option value="60">1 hour</option> <option value="120">2 hours</option> <option value="180">3 hours</option> <option value="1440">All day</option> </select> </div> </div>';
+    html = html.replace("{pilot_name}", pilot.display_name)
+            .replace("{pilot_email}", pilot.user_email)
+            .replace("{user_drone_info}", pilot.user_drone_info);
     var container = document.createElement('div');
     container.id = "connect-to-pilot";
     
