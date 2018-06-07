@@ -18,6 +18,7 @@
 </head>
 <body>
     <div id="map-container" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
+        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
         <div id="map"></div>
     </div>
 
@@ -35,5 +36,5 @@
         var lastPos = eval(<?php echo get_user_meta($user->ID, 'user_position', true); ?>);
 <?php endif; ?>
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyw5YGqIQvjH2OzzW_mJ1NeuA4IZ8KWD8&callback=initMap"
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyw5YGqIQvjH2OzzW_mJ1NeuA4IZ8KWD8&libraries=places&callback=initMap"
 async defer></script>

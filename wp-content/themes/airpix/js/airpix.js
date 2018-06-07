@@ -2,7 +2,7 @@ var map;
 var userPos = {lat: 10.85606544054808, lng: 106.63119583072796};
 //example locations
 var distance = 500; // meters
-var maxPilots = 5;
+var maxPilots = 10;
 var lab6TMA = {lat: 10.85606544054808, lng: 106.63119583072796}
 var pilotMarkers = [];
 var pilots = [
@@ -177,6 +177,14 @@ function displayCurrentPosOnMap(lat, lng) {
 //Show current position and nearby users
 //*/
 function showCurrentPosition(position) {
+
+    if (pilotMarkers.length > 0) {
+        pilotMarkers.map(function (marker) {
+            marker.setMap(null);
+        });
+    }
+    pilotMarkers = [];
+    
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
 //    userPos = {lat: lat, lng: lng};
@@ -204,6 +212,7 @@ function showCurrentPosition(position) {
             if (userDistance <= distance) {
                 //should add distance to item to compare
                 pilot.distance = userDistance;
+                console.log(userDistance);
                 _distancedPilots.push(pilot);
             }
 
@@ -216,17 +225,19 @@ function showCurrentPosition(position) {
 
         var infowindow = new google.maps.InfoWindow();
 
-        for (var i = 0; i < maxPilots && _distancedPilots.length >= maxPilots; i++) {
-            
+        var max = maxPilots > _distancedPilots.length ? _distancedPilots.length : maxPilots;
+        
+        for (var i = 0; i < max; i++) {
+
             var marker = new google.maps.Marker({
-                position: _distancedPilots[i].position, 
-                draggable: true, 
-                map: map, 
+                position: _distancedPilots[i].position,
+                draggable: true,
+                map: map,
                 title: _distancedPilots[i].display_name
             });
-            
+
             makeInfoWindowEvent(map, infowindow, _distancedPilots[i], marker);
-            
+
             pilotMarkers.push(marker);
         }
 
@@ -240,16 +251,18 @@ function makeInfoWindowEvent(map, infowindow, pilot, marker) {
             .replace("{user_drone_info}", pilot.user_drone_info);
     var container = document.createElement('div');
     container.id = "connect-to-pilot";
-    
+
     var connectBtn = document.createElement('button');
     connectBtn.id = "start_connecting";
     $(connectBtn).text("Connect!");
-    connectBtn.onclick = function(){handleConnectButton(infowindow)};
-    
+    connectBtn.onclick = function () {
+        handleConnectButton(infowindow)
+    };
+
     var userAction = document.createElement('div');
     userAction.class = "user-action";
     $(userAction).append(connectBtn);
-    
+
     $(container).append([html, userAction]);
 
     google.maps.event.addListener(marker, 'click', function () {
@@ -258,12 +271,12 @@ function makeInfoWindowEvent(map, infowindow, pilot, marker) {
     });
 }
 
-function handleConnectButton(infowindow){
+function handleConnectButton(infowindow) {
     console.log(infowindow);
-    
+
     //close the window
     infowindow.close();
-};
+}
 //**
 //Create current position button
 //*/
@@ -346,6 +359,76 @@ function UpdatePositionButton(controlDiv) {
 }
 
 //*
+//
+//**/
+//function initAutocomplete() {
+//    var map = new google.maps.Map(document.getElementById('map'), {
+//        center: {lat: -33.8688, lng: 151.2195},
+//        zoom: 13,
+//        mapTypeId: 'roadmap'
+//    });
+//
+//    // Create the search box and link it to the UI element.
+//    var input = document.getElementById('pac-input');
+//    var searchBox = new google.maps.places.SearchBox(input);
+//    map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+//
+//    // Bias the SearchBox results towards current map's viewport.
+//    map.addListener('bounds_changed', function () {
+//        searchBox.setBounds(map.getBounds());
+//    });
+//
+//    var markers = [];
+//    // Listen for the event fired when the user selects a prediction and retrieve
+//    // more details for that place.
+//    searchBox.addListener('places_changed', function () {
+//        var places = searchBox.getPlaces();
+//
+//        if (places.length == 0) {
+//            return;
+//        }
+//
+//        // Clear out the old markers.
+//        markers.forEach(function (marker) {
+//            marker.setMap(null);
+//        });
+//        markers = [];
+//
+//        // For each place, get the icon, name and location.
+//        var bounds = new google.maps.LatLngBounds();
+//        places.forEach(function (place) {
+//            if (!place.geometry) {
+//                console.log("Returned place contains no geometry");
+//                return;
+//            }
+//            var icon = {
+//                url: place.icon,
+//                size: new google.maps.Size(71, 71),
+//                origin: new google.maps.Point(0, 0),
+//                anchor: new google.maps.Point(17, 34),
+//                scaledSize: new google.maps.Size(25, 25)
+//            };
+//
+//            // Create a marker for each place.
+//            markers.push(new google.maps.Marker({
+//                map: map,
+//                icon: icon,
+//                title: place.name,
+//                position: place.geometry.location
+//            }));
+//
+//            if (place.geometry.viewport) {
+//                // Only geocodes have viewport.
+//                bounds.union(place.geometry.viewport);
+//            } else {
+//                bounds.extend(place.geometry.location);
+//            }
+//        });
+//        map.fitBounds(bounds);
+//    });
+//}
+
+//*
 //Init Google maps
 //**/
 function initMap() {
@@ -365,8 +448,8 @@ function initMap() {
 
     currentPosBtn.index = 1;
     updatePosBtn.index = 2;
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(currentPosBtn);
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(updatePosBtn);
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(currentPosBtn);
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(updatePosBtn);
 
     //start from last saved location
     if (lastPos) {
@@ -396,4 +479,22 @@ $(document).ready(function () {
         e.preventDefault();
         $.magnificPopup.close();
     });
+    $('#pac-input').on('change', function (e) {
+        var input = e.target.value;
+
+        if (isNormalInteger(input) && input > 0) {
+            distance = input;
+            getLocation();
+            console.log("update google maps");
+
+        } else {
+            toastr.error('Enter number only in meters', 'Input error');
+        }
+    });
 })
+
+//check string is integer
+function isNormalInteger(str) {
+    var n = Math.floor(Number(str));
+    return n !== Infinity && String(n) === str && n >= 0;
+}
