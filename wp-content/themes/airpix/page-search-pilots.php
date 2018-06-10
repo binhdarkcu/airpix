@@ -18,7 +18,7 @@
 </head>
 <body>
     <div id="map-container" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
-        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+        <input id="pac-input" class="controls" type="text" placeholder="Search by distance...">
         <div id="map"></div>
     </div>
 

@@ -47,8 +47,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
         <div id="navbar" class="navbar-collapse collapse">
 			<div class="top-search">
-				<form class="navbar-form navbar-right">
-					<input type="text" class="form-control" placeholder="Search...">
+				<form class="navbar-form navbar-right" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+                                    <input type="text" class="form-control" name="s" placeholder="Search...">
 					<input type="submit" value=" ">
 				</form>
 			</div>

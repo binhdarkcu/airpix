@@ -55,9 +55,9 @@
                     <?php endforeach;?>
                 </div>
             </div>
-            <div id="video-player-popup" class="mfp-hide">
-                <!--        <video id="video-player" width="640" height="360" src=""></video>-->
-            </div>
+<!--            <div id="video-player-popup" class="mfp-hide">
+                        <video id="video-player" width="640" height="360" src=""></video>
+            </div>-->
         </div>
 <div class="clearfix"> </div>
 

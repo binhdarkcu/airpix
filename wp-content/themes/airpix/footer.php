@@ -1,5 +1,9 @@
 <!-- footer -->
-<div class="footer <?php if(is_home()) echo 'col-md-offset-2'?> ">
+<?php 
+    global $post;
+    $post_slug=$post->post_name;
+?>
+<div class="footer <?php if($post_slug != "upload") echo 'col-md-offset-2'?>">
     <div class="container">
         <div class="footer-top">
             <div class="footer-top-nav">

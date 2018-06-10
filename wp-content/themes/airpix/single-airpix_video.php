@@ -20,7 +20,7 @@ try {
     $query = "SELECT * FROM " . $wpdb->prefix . "videos WHERE post_id=$post_id";
 
     //If not admin, only show videos have been published
-    $query.= " AND is_published = ". (!current_user_can('administrator') ? "TRUE":"FALSE");
+    !current_user_can('administrator') ? $query.= " AND is_published = TRUE": "";
     $query.= " LIMIT 1";
 
     $row = $wpdb->get_row ( $query );

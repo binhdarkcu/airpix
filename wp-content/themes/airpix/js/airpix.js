@@ -273,7 +273,7 @@ function makeInfoWindowEvent(map, infowindow, pilot, marker) {
 
 function handleConnectButton(infowindow) {
     console.log(infowindow);
-
+     toastr.success('Successfully connected!', 'System notification');
     //close the window
     infowindow.close();
 }
