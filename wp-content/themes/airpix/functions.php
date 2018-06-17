@@ -12,7 +12,8 @@ add_action('wp_enqueue_scripts', 'ajax_enqueue');
 add_action('init', 'create_posttype');
 add_action('init', 'add_get_val');
 add_action('wp_ajax_update_location', 'update_user_location');
-
+add_action( 'add_meta_boxes', 'wpdocs_register_meta_boxes' );
+add_action( 'save_post', 'wpdocs_save_meta_box' );
 //get param on url
 function add_get_val() {
     global $wp;
@@ -131,3 +132,48 @@ function get_pilots(){
     
     return $result;
 }
+/**
+ * Register meta box(es).
+ */
+function wpdocs_register_meta_boxes() {
+    add_meta_box( 'meta-box-id', __( 'Video Preview', 'textdomain' ), 'wpdocs_my_display_callback', 'airpix_video', 'advanced', 'high' );
+}
+ 
+/**
+ * Meta box display callback.
+ *
+ * @param WP_Post $post Current post object.
+ */
+function wpdocs_my_display_callback( $post ) {
+    // Display code/markup goes here. Don't forget to include nonces!
+    global $wpdb;
+    $query = "SELECT * FROM " . $wpdb->prefix . "videos WHERE post_id = $post->ID";
+    $query.= " LIMIT 1";
+    $row = $wpdb->get_row ( $query );
+    
+    //unlimited echo works
+    echo '<div id="view-video">';
+    echo '<video id="element-video-player" preload="auto" controls="controls" width="640" height="360" style="width:100%;height:100%;">';
+    echo '<source src="'. site_url().'/wp-content/plugins/video-management/api/get_video.php?vid='.$row->id.'type="video/mp4">';
+    echo 'Your browser does not support the video tag.';
+    echo '</video>';
+    echo '</div>';
+    echo '<script type="text/javascript">';
+    echo 'jQuery(document).ready(function(){ jQuery("#element-video-player").mediaelementplayer(); })';
+    echo '</script>';
+}
+ 
+/**
+ * Save meta box content.
+ *
+ * @param int $post_id Post ID
+ */
+function wpdocs_save_meta_box( $post_id ) {
+    // Save logic goes here. Don't forget to include nonce checks!
+}
+
+add_action('edit_form_after_title', function() {
+    global $post, $wp_meta_boxes;
+    do_meta_boxes(get_current_screen(), 'advanced', $post);
+    unset($wp_meta_boxes[get_post_type($post)]['advanced']);
+});

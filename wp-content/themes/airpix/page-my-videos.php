@@ -27,7 +27,7 @@
 
             $current_user = wp_get_current_user();
 
-            if(!$current_user) return wp_redirect('/');
+            if(!$current_user) {return wp_redirect('/');}
 
             $query = "SELECT V.*, U.display_name as user_name "
                     . "FROM " . $wpdb->prefix . "videos  AS V  "
